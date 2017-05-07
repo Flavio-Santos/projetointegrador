@@ -3,10 +3,11 @@
 
 <html>
 	<head>
-		<script src="js/jquery-3.2.1.js" type="text/javascript"></script>
-		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-		<script src="js/bootstrap.js" type="text/javascript"></script>
+		<jsp:include page="header.jsp" />
+		<title>Login</title>
 	</head>
+	
+	
 
 	<body>
 		<form id="fom-login">
