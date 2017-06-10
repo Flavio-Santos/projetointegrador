@@ -1,11 +1,22 @@
 package br.com.iftm.projetointegrador.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+import br.com.iftm.projetointegrador.dao.Conexao;
+import br.com.iftm.projetointegrador.dao.GenericDAO;
 
 /**
  * Servlet implementation class CadastrarUsuarioServlet
@@ -27,7 +38,30 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("1");
+		response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+		
+        try{
+			Connection conexao = (Connection) Conexao.getConexao();
+			String sql="SELECT * FROM EVENTO;";
+			PreparedStatement stmt=(PreparedStatement) conexao.prepareStatement(sql);
+			 ResultSet resultado = stmt.executeQuery();
+			 String desc="";
+			 while(resultado.next()){
+				 desc+= "<br>"+resultado.getString("descricao");
+			 }
+			 response.getWriter().append(desc);
+			 RequestDispatcher rs = request.getRequestDispatcher("teste.jsp");
+			 rs.include(request, response);
+        }catch(Exception e){
+        	response.getWriter().append("n foi");
+
+			 
+        }
+		
+			// TODO Auto-generated catch block
+			
 	}
 
 	/**

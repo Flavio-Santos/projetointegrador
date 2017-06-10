@@ -32,9 +32,11 @@
 		  <div class="checkbox">
 		    <label><input type="checkbox">Lembrar</label>
 		  </div>
-		  
+		  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+		  <div class="collapse in" id="demo">Teste Teste Teste</div>
 		  <button type="submit" class="btn btn-success">Logar</button>
 		  <button type="button" class="btn btn-default">Esqueci a senha</button>
+		  
 		</form>
 	</body>
 </html>
