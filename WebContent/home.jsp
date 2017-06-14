@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
     <head>
         <title>Home</title>
         <link rel="stylesheet" href="css/materialize.css">
@@ -55,11 +56,16 @@
 			<c:forEach var="item" items="${eventos}">
 				<div class="caixa-eventos" >
 					<p>${item.getNomeEvento()} ${mensagem}</p>
-					<p>data inicio</p>
-					<p>data fim</p>
+					
+					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDataFim()}"/> ||</p>
+					
+					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDataInicio()}"/> ||</p>
+					
 					<p>${item.getDescricao()}</p>
 					<a class="waves-effect waves-light btn" href="">Participar</a>
 				</div>
+				
+				
 			</c:forEach>
 			
 			<!--           

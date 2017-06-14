@@ -33,23 +33,34 @@ public class CadastrarEventoServlet extends HttpServlet {
      */
     public CadastrarEventoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
+    public String tratarData(String s){
+    	if (s.charAt(4) == '-'){
+    		String data = "";
+    		data += "" + s.charAt(8) + s.charAt(9);
+    		data += "/" + s.charAt(5) + s.charAt(6);
+    		data += "/" + s.charAt(0) + s.charAt(1) + s.charAt(2) + s.charAt(3);
+    		return data;
+    	}
+    	else {
+    		return s;
+    	}
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		String nomeEvento = request.getParameter("nome");//pega os parametros 
-		String dtInicio = request.getParameter("dataInicio");
-		String dtFim = request.getParameter("dataFim");
+		String dtInicio = tratarData(request.getParameter("dataInicio"));
+		String dtFim = tratarData(request.getParameter("dataFim"));
 		String xp = request.getParameter("xp");
 		String descEvento = request.getParameter("desc");
 		
-		response.getWriter().append("<br>" + nomeEvento + "<br>"+dtInicio + "<br>"+dtFim + "<br>"+descEvento + "<br>" + xp); 
+		//response.getWriter().append("<br>" + nomeEvento + "<br>"+dtInicio + "<br>"+dtFim + "<br>"+descEvento + "<br>" + xp); 
 		
 		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -64,16 +75,17 @@ public class CadastrarEventoServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.getWriter().append("<br>"+nomeEvento + "<br>"+dataInicio + "<br>"+ dataFim + "<br>"+ descEvento + "<br>"+xp); 
+		//response.getWriter().append("<br>______<br>"+nomeEvento + "<br>"+dataInicio + "<br>"+ dataFim + "<br>"+ descEvento + "<br>"+xp); 
 		Evento evento = new Evento(nomeEvento, descEvento, dataInicio, dataFim);
+		
 		try {
 			eventoDao.insere(evento);
 		} catch (SQLException e) {
 			//TODO tratar amigavelmente
 			e.printStackTrace();
 		}
-		//response.getWriter().append("=" + dateI);
-		//response.sendRedirect("EventoServlet");
+	
+		response.sendRedirect("EventoServlet");
 		
 		/*public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, CategoriaEvento categoria, Administrador admin) {
 			super();

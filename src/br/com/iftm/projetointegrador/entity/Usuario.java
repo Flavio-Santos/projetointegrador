@@ -5,6 +5,7 @@ public abstract class Usuario {
 	private String email;
 	private String senha;
 	private String sexo;
+	private Integer experiencia = 0;
 	private String hierarquia;
 	private Integer id;
 	
@@ -43,6 +44,22 @@ public abstract class Usuario {
 
 	public Integer getId(){
 		return this.id;
+	}
+
+	public Integer getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(Integer experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 }
 

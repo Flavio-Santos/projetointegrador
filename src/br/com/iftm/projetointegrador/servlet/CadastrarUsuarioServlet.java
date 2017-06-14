@@ -1,8 +1,8 @@
 package br.com.iftm.projetointegrador.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,14 +15,16 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.iftm.projetointegrador.dao.Conexao;
+import br.com.iftm.projetointegrador.dao.VoluntarioDAO;
+import br.com.iftm.projetointegrador.entity.Voluntario;
 
 /**
  * Servlet implementation class CadastrarUsuarioServlet
  */
-@WebServlet(description = "Servlet para efetuar o cadastro de usuarios do sistema", urlPatterns = { "/CadastrarUsuarioServlet" })
+@WebServlet(description = "Servlet para efetuar o cadastro de usuarios do sistema", urlPatterns = { "/CadastrarEventoServlet" })
 public class CadastrarUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private VoluntarioDAO voluntarioDao = new VoluntarioDAO();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,7 +40,18 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("1");
 		response.setContentType("text/html;charset=UTF-8");
-  
+		String nome = request.getParameter("nome");//pega os parametros 
+		String email = request.getParameter("email");
+		String senha = request.getParameter("senha");
+		
+		Voluntario voluntario = new Voluntario(nome, email, null, 0, null, null);
+		try {
+			voluntarioDao.insere(voluntario);
+		} catch (SQLException e) {
+			//TODO tratar amigavelmente
+			e.printStackTrace();
+		}
+		
 		
         try{
 			Connection conexao = (Connection) Conexao.getConexao();

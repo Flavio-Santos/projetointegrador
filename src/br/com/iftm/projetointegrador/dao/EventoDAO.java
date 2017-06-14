@@ -21,11 +21,19 @@ public class EventoDAO {
 		PreparedStatement stmt = (PreparedStatement) conexao.prepareStatement(sql);
 		ResultSet resultado = stmt.executeQuery();
 		List<Evento> eventos = new LinkedList<>();
+		
+		java.util.Date dataInicio;
+		java.util.Date dataFim;
+		
 		while (resultado.next()){
-			eventos.add(new Evento(resultado.getString(1), resultado.getString(2)));
+			dataInicio = new java.util.Date(resultado.getDate(4).getTime());
+			dataFim = new java.util.Date(resultado.getDate(5).getTime());
+			eventos.add(new Evento(resultado.getString(1), resultado.getString(2), dataInicio, dataFim));
 		}
 		return eventos;
 	}
+	
+	
 	
 	public void insere(Evento evento) throws SQLException{
 		Connection conexao = (Connection) Conexao.getConexao();

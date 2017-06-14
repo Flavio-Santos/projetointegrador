@@ -53,13 +53,13 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col l12">
-                                <input id="nome" type="text" class="validate">
+                                <input id="nome" type="text" class="validate" name="nome">
                                 <label for="nome">First Name</label>
                             </div>
             
                             <div class="row">
                                 <div class="input-field col l12">
-                                    <input id="email" type="email" class="validate">
+                                    <input id="email" type="email" class="validate" name="email">
                                     <label for="email">Email</label>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col l6">
-                                <input id="password" type="password" class="validate">
+                                <input id="password" type="password" class="validate" name="senha">
                                 <label for="password">Password</label>
                             </div>
                     

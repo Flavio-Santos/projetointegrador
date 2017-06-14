@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 public class Voluntario extends Usuario{
 	private String tiposangue;
-	private Integer experencia;
 	private Patente patente;
 	private LinkedList<Evento> eventos = new LinkedList<Evento>();
 	
@@ -13,14 +12,11 @@ public class Voluntario extends Usuario{
 	}
 	
 	public void participaEvento(Evento evento){
-		
 		this.eventos.add(evento);
 		
 	}
 	
-	private void aumentaExperiencia(Integer exp){
-		this.experencia += exp;
-	}
+
 	
 	
 }
