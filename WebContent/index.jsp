@@ -50,7 +50,7 @@
                     <h5>Cadastrar</h5>
                     <!--nome email senha--> 
 
-                    <form class="col s12">
+                    <form action="CadastrarUsuarioServlet" method="post" class="col s12">
                         <div class="row">
                             <div class="input-field col l12">
                                 <input id="nome" type="text" class="validate" name="nome">
@@ -76,7 +76,7 @@
                                 <label for="confiPassword">Confirmar Senha</label>
                             </div>
                         </div>
-                        <a href="home.html" class="modal-action modal-close waves-effect waves-green btn-flat">Cadastrar</a>
+                        <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Cadastrar</button>
                     </form>
                 
                 </div>

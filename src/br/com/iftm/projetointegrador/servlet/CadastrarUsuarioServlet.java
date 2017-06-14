@@ -21,7 +21,7 @@ import br.com.iftm.projetointegrador.entity.Voluntario;
 /**
  * Servlet implementation class CadastrarUsuarioServlet
  */
-@WebServlet(description = "Servlet para efetuar o cadastro de usuarios do sistema", urlPatterns = { "/CadastrarEventoServlet" })
+@WebServlet("/CadastrarUsuarioServlet")
 public class CadastrarUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private VoluntarioDAO voluntarioDao = new VoluntarioDAO();
@@ -40,36 +40,6 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("1");
 		response.setContentType("text/html;charset=UTF-8");
-		String nome = request.getParameter("nome");//pega os parametros 
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		
-		Voluntario voluntario = new Voluntario(nome, email, null, 0, null, null);
-		try {
-			voluntarioDao.insere(voluntario);
-		} catch (SQLException e) {
-			//TODO tratar amigavelmente
-			e.printStackTrace();
-		}
-		
-		
-        try{
-			Connection conexao = (Connection) Conexao.getConexao();
-			String sql="SELECT * FROM EVENTO;";
-			PreparedStatement stmt=(PreparedStatement) conexao.prepareStatement(sql);
-			 ResultSet resultado = stmt.executeQuery();
-			 String desc="";
-			 while(resultado.next()){
-				 desc+= "<br>"+resultado.getString("descricao");
-			 }
-			 response.getWriter().append(desc);
-			 RequestDispatcher rs = request.getRequestDispatcher("teste.jsp");
-			 rs.include(request, response);
-        }catch(Exception e){
-        	response.getWriter().append("n foi"); 
-        }
-		
-			// TODO Auto-generated catch block
 			
 	}
 
@@ -79,6 +49,20 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		String nome = request.getParameter("nome");//pega os parametros 
+		String email = request.getParameter("email");
+		String senha = request.getParameter("senha");
+		
+		Voluntario voluntario = new Voluntario(nome, email, null, null, null);
+		try {
+			voluntarioDao.insere(voluntario);
+		} catch (SQLException e) {
+			//TODO tratar amigavelmente
+			e.printStackTrace();
+		}
+		response.sendRedirect("EventoServlet");
 	}
+
 
 }
