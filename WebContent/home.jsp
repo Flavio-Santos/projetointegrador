@@ -20,7 +20,7 @@
           <li><a href="perfil.html">Perfil</a></li>
           <li><a href="eventos.html">Evento</a></li>
           <li><a href="ranking.html">Ranking</a></li>
-          <li><a href="CadastraEvento.html">Cadastrar evento</a></li>
+          <li><a href="CadastraEvento.jsp">Cadastrar evento</a></li>
           <li><a href="index.html">Sair</a></li>
         </ul>
       </div>
@@ -51,11 +51,23 @@
         </div>
         <div class="col l8">
           <p>Ultimos eventos</p>
-          <div class="caixa-eventos">
-            <p>nome)</p>
+          
+			<c:forEach var="item" items="${eventos}">
+				<div class="caixa-eventos" >
+					<p>${item.getNomeEvento()} ${mensagem}</p>
+					<p>data inicio</p>
+					<p>data fim</p>
+					<p>${item.getDescricao()}</p>
+					<a class="waves-effect waves-light btn" href="">Participar</a>
+				</div>
+			</c:forEach>
+			
+			<!--           
+          <div class="caixa-eventos" style="border:1px black solid;">
+            <p>${eventos[0].getNomeEvento()} ${mensagem}</p>
             <p>data inicio</p>
             <p>data fim</p>
-            <p>descrição</p>
+            <p>${eventos[0].getDescricao()}</p>
             <a class="waves-effect waves-light btn" href="">Participar</a>
           </div>
 
@@ -73,7 +85,7 @@
             <p>data fim</p>
             <p>descrição</p>
             <a class="waves-effect waves-light btn" href="">Participar</a>
-          </div>
+          </div>-->
         </div>
       </div>
 

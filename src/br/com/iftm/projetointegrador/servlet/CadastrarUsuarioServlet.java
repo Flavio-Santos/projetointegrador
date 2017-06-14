@@ -3,7 +3,6 @@ package br.com.iftm.projetointegrador.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +15,6 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.iftm.projetointegrador.dao.Conexao;
-import br.com.iftm.projetointegrador.dao.GenericDAO;
 
 /**
  * Servlet implementation class CadastrarUsuarioServlet
@@ -40,7 +38,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("1");
 		response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+  
 		
         try{
 			Connection conexao = (Connection) Conexao.getConexao();
@@ -55,9 +53,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			 RequestDispatcher rs = request.getRequestDispatcher("teste.jsp");
 			 rs.include(request, response);
         }catch(Exception e){
-        	response.getWriter().append("n foi");
-
-			 
+        	response.getWriter().append("n foi"); 
         }
 		
 			// TODO Auto-generated catch block

@@ -30,26 +30,26 @@
         <main>
             <div class="row">
                 <div class="col l6 offset-l3">
-                    <form action="" class="form">
+                    <form action="CadastrarEventoServlet" class="form" method="get" >
                         <div class="input-field">
-                            <input id="nome-evento" type="text">
-                            <label for="nome-evento">Nome Evento</label>
+                            <input id="nome-evento" type="text" name="nome">
+                            <label for="nome-evento" >Nome Evento</label>
                         </div>
-                        <div class="input-field">
-                            <input id="dt-inicio" type="text">
-                            <label for="dt-inicio">Data de Inicio</label>
+                        <div class="">
+                        	<label for="dt-inicio">Data de Inicio</label>
+                            <input id="dt-inicio" type="date" name="dataInicio">
                         </div>
-                        <div class="input-field">
-                            <input id="dt-fim" type="text">
+                        <div class="">
                             <label for="dt-fim">Data de fim</label>
+                            <input id="dt-fim" type="date" name="dataFim">
                         </div>
                         <div class="input-field">
-                            <input id="xp" type="text">
-                            <label for="xp">ExperiÃªncia</label>
+                            <input id="xp" type="text" name="xp">
+                            <label for="xp">Experiência</label>
                         </div>
                         <div class="input-field">
-                            <input id="desc-evento" type="text">
-                            <label for="desc-evento">DescriÃ§Ã£o</label>
+                            <input id="desc-evento" type="text" name="desc">
+                            <label for="desc-evento">Descrição</label>
                         </div>
                         <button type="submit" class="waves-effect waves-light btn" href="">Concluir</button>
                     </form>
