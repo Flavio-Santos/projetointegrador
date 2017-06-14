@@ -1,5 +1,6 @@
 package br.com.iftm.projetointegrador.dao;
 
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,11 +34,8 @@ public class EventoDAO {
         stmt.setString(1, evento.getNomeEvento());
         stmt.setString(2, evento.getDescricao());
         
-        java.util.Date dataUtil = new java.util.Date();
-        java.sql.Date dataSql = new java.sql.Date(dataUtil.getDate());
-        
-        stmt.setDate(3, dataSql);
-        stmt.setDate(4, dataSql);
+        stmt.setDate(3,new Date(evento.getDataInicio().getTime()));
+        stmt.setDate(4, new Date(evento.getDataFim().getTime()));
         stmt.execute();        
         stmt.close();
         conexao.close();

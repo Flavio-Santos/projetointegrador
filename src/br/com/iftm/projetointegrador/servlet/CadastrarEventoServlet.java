@@ -51,27 +51,26 @@ public class CadastrarEventoServlet extends HttpServlet {
 		
 		response.getWriter().append("<br>" + nomeEvento + "<br>"+dtInicio + "<br>"+dtFim + "<br>"+descEvento + "<br>" + xp); 
 		
-		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date dateI = null;
-		try {
-			dateI = sdf.parse(dtInicio);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		DateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-		Date dateF = null;
-		try {
-			dateF = sdf2.parse(dtFim);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
+		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
-		response.getWriter().append("<br>"+nomeEvento + "<br>"+dateI + "<br>"+ dateF + "<br>"+ descEvento + "<br>"+xp); 
-		Evento evento = new Evento(nomeEvento, descEvento, dateI, dateF);
+		Date dataInicio = null;
+		Date dataFim = null;
+		
+		try {
+			dataInicio = formatador.parse(dtInicio);
+			dataFim = formatador.parse(dtFim);
+		} catch (ParseException e) {
+			//TODO Efetuar tratament amigavel
+			e.printStackTrace();
+		}
+		
+		response.getWriter().append("<br>"+nomeEvento + "<br>"+dataInicio + "<br>"+ dataFim + "<br>"+ descEvento + "<br>"+xp); 
+		Evento evento = new Evento(nomeEvento, descEvento, dataInicio, dataFim);
 		try {
 			eventoDao.insere(evento);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException e) {
+			//TODO tratar amigavelmente
+			e.printStackTrace();
 		}
 		//response.getWriter().append("=" + dateI);
 		//response.sendRedirect("EventoServlet");
