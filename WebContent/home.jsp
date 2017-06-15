@@ -22,7 +22,7 @@
           <li><a href="eventos.html">Evento</a></li>
           <li><a href="ranking.html">Ranking</a></li>
           <li><a href="CadastraEvento.jsp">Cadastrar evento</a></li>
-          <li><a href="index.html">Sair</a></li>
+          <li><a href="index.jsp">Sair</a></li>
         </ul>
       </div>
 

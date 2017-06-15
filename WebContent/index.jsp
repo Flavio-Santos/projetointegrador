@@ -26,23 +26,27 @@
         </header>
 
         <main>
-
+		
             <div id="modal-login" class="modal">
-                <div class="modal-content">
-                    <h4>Faça seu login</h4>
-                    <div class="input-field col l12">
-                        <input id="name" type="text" class="validate">
-                        <label for="name">Nick name</label>
-                    </div>
-                    <div class="input-field col l12">
-                        <input type="password" id="senha" class="validate">
-                        <label for="senha">Senha</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a class="modal-close btn-flat" href="#modal-registrar">Cadastrar</a>
-                    <a href="home.jsp" class="modal-action modal-close waves-effect waves-green btn-flat">Entrar</a>   
-                </div>
+	            <form action="LoginServlet" method="post">
+	                <div class="modal-content">
+		                    <h4>Faça seu login</h4>
+		                    <div class="input-field col l12">
+		                        <input id="name" type="text" class="validate" name="login">
+		                        <label for="name">Nick name</label>
+		                    </div>
+		                    <div class="input-field col l12">
+		                        <input type="password" id="senha" class="validate" name="senha">
+		                        <label for="senha">Senha</label>
+		                    </div>
+		                    
+		                
+		                </div>
+		                <div class="modal-footer">
+		                    <a class="modal-close btn-flat" href="#modal-registrar">Cadastrar</a>
+		                    <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Entrar</button>   
+		                </div>
+	                </form>
             </div>
 
             <div id="modal-registrar" class="modal">

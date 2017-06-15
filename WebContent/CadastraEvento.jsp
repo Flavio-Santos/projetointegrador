@@ -20,7 +20,7 @@
                     <li><a href="perfil.html">Perfil</a></li>
                     <li><a href="eventos.html">Evento</a></li>
                     <li><a href="ranking.html">Ranking</a></li>
-                    <li><a href="index.html">Sair</a></li>
+                    <li><a href="index.jsp">Sair</a></li>
                     </ul>
                 </div>
             </nav>

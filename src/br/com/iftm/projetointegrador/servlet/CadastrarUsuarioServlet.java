@@ -1,20 +1,14 @@
 package br.com.iftm.projetointegrador.servlet;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
-import br.com.iftm.projetointegrador.dao.Conexao;
 import br.com.iftm.projetointegrador.dao.VoluntarioDAO;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
@@ -48,13 +42,13 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 		
 		String nome = request.getParameter("nome");//pega os parametros 
-		String email = request.getParameter("email");
+		String login = request.getParameter("email");
 		String senha = request.getParameter("senha");
 		
-		Voluntario voluntario = new Voluntario(nome, email, null, null, null);
+		Voluntario voluntario = new Voluntario(nome, login, null, null, null);
 		try {
 			voluntarioDao.insere(voluntario);
 		} catch (SQLException e) {
