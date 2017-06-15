@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String login = request.getParameter("email");
+		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		
 		try {

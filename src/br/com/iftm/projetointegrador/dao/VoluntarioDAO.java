@@ -1,22 +1,18 @@
 package br.com.iftm.projetointegrador.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
-import br.com.iftm.projetointegrador.entity.Evento;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
 public class VoluntarioDAO {
 
 	public boolean getVoluntario(String l, String s) throws NumberFormatException, SQLException{
-		Connection conexao = (Connection) Conexao.getConexao();
+		Connection conexao = Conexao.getConexao();
 		String sql = "select * from usuario where Login=? and Senha=?;";
-		PreparedStatement stmt = (PreparedStatement) conexao.prepareStatement(sql);
+		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, l);
         stmt.setString(2, s);
 		ResultSet resultado = stmt.executeQuery();
