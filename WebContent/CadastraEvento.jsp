@@ -15,7 +15,7 @@
         <div class="navbar-fixed">
             <nav class=" blue lighten-2">
                 <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo">Logo</a>
+                    <a href="home.jsp" class="brand-logo">Logo</a>
                     <ul class="right hide-on-med-and-down">
                     <li><a href="perfil.html">Perfil</a></li>
                     <li><a href="eventos.html">Evento</a></li>

@@ -16,13 +16,13 @@
     <div class="navbar-fixed">
     <nav class=" blue lighten-2">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Logo</a>
+        <a href="EventoServlet" class="brand-logo">Logo</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="perfil.html">Perfil</a></li>
           <li><a href="eventos.html">Evento</a></li>
           <li><a href="ranking.html">Ranking</a></li>
           <li><a href="CadastraEvento.jsp">Cadastrar evento</a></li>
-          <li><a href="index.jsp">Sair</a></li>
+          <li><a href="LogoutServlet">Sair</a></li>
         </ul>
       </div>
 
@@ -36,16 +36,16 @@
           <div class="col l12">
             <table>
               <tr>
-                <td>Nome:</td>
-                <td>iserir nome aki</td>
+                <td>Nome: </td>
+                <td>${voluntario.getNome()}</td>
               </tr>
               <tr>
                 <td>XP:</td>
-                <td>00</td>
+                <td>${voluntario.getExperiencia()}</td>
               </tr>
               <tr>
                 <td>Patente</td>
-                <td>??</td>
+                <td>${voluntario.getNomepatente()}</td>
               </tr>
             </table>
           </div>
@@ -55,43 +55,17 @@
           
 			<c:forEach var="item" items="${eventos}">
 				<div class="caixa-eventos" >
-					<p>${item.getNomeEvento()} ${mensagem}</p>
+					<p>${item.getNomeevento()} ${mensagem}</p>
 					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDataFim()}"/> ||</p>
+					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
 					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDataInicio()}"/> ||</p>
+					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
 					
 					<p>${item.getDescricao()}</p>
 					<a class="waves-effect waves-light btn" href="">Participar</a>
-				</div>
-				
-				
+				</div>		
 			</c:forEach>
 			
-			<!--           
-          <div class="caixa-eventos" style="border:1px black solid;">
-            <p>${eventos[0].getNomeEvento()} ${mensagem}</p>
-            <p>data inicio</p>
-            <p>data fim</p>
-            <p>${eventos[0].getDescricao()}</p>
-            <a class="waves-effect waves-light btn" href="">Participar</a>
-          </div>
-
-          <div class="caixa-eventos">
-            <p>nome)</p>
-            <p>data inicio</p>
-            <p>data fim</p>
-            <p>descrição</p>
-            <a class="waves-effect waves-light btn" href="">Participar</a>
-          </div>
-
-          <div class="caixa-eventos">
-            <p>nome)</p>
-            <p>data inicio</p>
-            <p>data fim</p>
-            <p>descrição</p>
-            <a class="waves-effect waves-light btn" href="">Participar</a>
-          </div>-->
         </div>
       </div>
 

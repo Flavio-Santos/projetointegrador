@@ -4,47 +4,37 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class Evento {
-	private String nomeevento;
 	private String descricao;
-	private Integer idadmin;
+	private String nomeevento;
+	private Integer codevento;
 	private Date datainicio;
 	private Date datafim;
 	private CategoriaEvento categoria;
-	private Administrador admin;
+	private Voluntario administrador ;
 	private LinkedList<Voluntario> voluntarios = new LinkedList<Voluntario>();
-	
-	public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, CategoriaEvento categoria, Administrador admin) {
-		super();
-		this.setNomeEvento(nomeevento);
-		this.setDescricao(descricao);
-		this.idadmin = admin.getId();;
-		this.setDataInicio(datainicio);
-		this.setDataFim(datafim);
+
+	public Evento(String descricao, String nomeevento, Integer codevento, Date datainicio, Date datafim,
+			CategoriaEvento categoria, Voluntario administrador) {
+		this.descricao = descricao;
+		this.nomeevento = nomeevento;
+		this.codevento = codevento;
+		this.datainicio = datainicio;
+		this.datafim = datafim;
 		this.categoria = categoria;
-		categoria.assosiaEvento(this);
-		this.admin = admin;
+		this.administrador = administrador;
 	}
-	
+
 	public Evento(String nomeevento, String descricao, Date datainicio, Date datafim){
-		this.setNomeEvento(nomeevento);
-		this.setDescricao(descricao);
-		this.setDataInicio(datainicio);
-		this.setDataFim(datafim);
+		this.descricao = descricao;
+		this.nomeevento = nomeevento;
+		this.datainicio = datainicio;
+		this.datafim = datafim;
 	}
 
 	public Evento(String nome, String descricao) {
 		this.nomeevento = nome;
 		this.descricao = descricao;
 	}
-
-	public String getNomeEvento() {
-		return nomeevento;
-	}
-
-	public void setNomeEvento(String nomeevento) {
-		this.nomeevento = nomeevento;
-	}
-
 
 	public String getDescricao() {
 		return descricao;
@@ -54,22 +44,40 @@ public class Evento {
 		this.descricao = descricao;
 	}
 
-	public Date getDataInicio() {
+	public String getNomeevento() {
+		return nomeevento;
+	}
+
+	public void setNomeevento(String nomeevento) {
+		this.nomeevento = nomeevento;
+	}
+
+
+	public Date getDatainicio() {
 		return datainicio;
 	}
 
-	public void setDataInicio(Date datainicio) {
+	public void setDatainicio(Date datainicio) {
 		this.datainicio = datainicio;
 	}
 
-	public Date getDataFim() {
+	public Date getDatafim() {
 		return datafim;
 	}
 
-	public void setDataFim(Date datafim) {
+	public void setDatafim(Date datafim) {
 		this.datafim = datafim;
 	}
 
+	public Integer getCodevento() {
+		return codevento;
+	}
+
+	public void setCodevento(Integer codevento) {
+		this.codevento = codevento;
+	}
+
+	
 	
 	
 	

@@ -5,26 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.iftm.projetointegrador.entity.Patente;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
 public class VoluntarioDAO {
-
-	public boolean getVoluntario(String l, String s) throws NumberFormatException, SQLException{
+	
+	public boolean verificaLogin(String login, String senha) throws SQLException{
 		Connection conexao = Conexao.getConexao();
-		String sql = "select * from usuario where Login=? and Senha=?;";
+		String sql = "select * from Voluntario where Login=? and Senha=?;";
 		PreparedStatement stmt = conexao.prepareStatement(sql);
-		stmt.setString(1, l);
-        stmt.setString(2, s);
+		stmt.setString(1, login);
+        stmt.setString(2, senha);
 		ResultSet resultado = stmt.executeQuery();
 		if (resultado.next()){
-			/*
-			String nome = resultado.getString("nome");
-			String login = resultado.getString("Login");
-			String sexo = resultado.getString("Sexo");
-			String hierarquia = resultado.getString("Hierarquia");
-			Integer id = Integer.parseInt(resultado.getString("ID"));
-			Voluntario voluntario = new Voluntario(nome, login, sexo, hierarquia, id);
-			*/
 			return true;
 		}
 		else {
@@ -32,16 +25,46 @@ public class VoluntarioDAO {
 		}
 	}
 	
+	public Voluntario getVoluntario(String login) throws NumberFormatException, SQLException{
+		Connection conexao = Conexao.getConexao();
+		String sql = "select * from Voluntario where Login=?;";
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, login);
+		ResultSet resultado = stmt.executeQuery();
+		if (resultado.next()){
+			//Pega os campos do voluntario no banco
+			String nome = resultado.getString("nome");
+			String senha = resultado.getString("senha");
+			Integer id = resultado.getInt("ID");
+			Boolean admin = resultado.getBoolean("Admin");
+			Boolean ativo = resultado.getBoolean("Ativo");
+			String email = resultado.getString("email");
+			Integer experiencia = resultado.getInt("experiencia");
+			String sexo = resultado.getString("sexo");
+			PatenteDAO patenteDAO = new PatenteDAO();
+			Integer codpatente = resultado.getInt("cod_patente");
+			Patente patente = patenteDAO.getPatente(codpatente);
+			//Cria um voluntario com os dados que foram retornados do banco
+			Voluntario voluntario = new Voluntario(login, nome, senha, id, admin, ativo, email, experiencia, sexo, patente);
+			return voluntario;
+		}
+		else {
+			return new Voluntario();
+		}
+	}
+	
 	public void insere(Voluntario voluntario) throws SQLException{
-		Connection conexao = (Connection) Conexao.getConexao();
-        String sql = "insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values (?,?,?,?,?,?);";
-        PreparedStatement stmt = (PreparedStatement) conexao.prepareStatement(sql);
+		Connection conexao =  Conexao.getConexao();
+        String sql = "insert into Voluntario (nome, login, email, cod_patente,senha, sexo, Experiencia) values"
+        		+ "(?,?,?,?,?,?,?)";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setString(1, voluntario.getNome());
-        stmt.setInt(2, voluntario.getExperiencia());
-        stmt.setString(3, voluntario.getLogin());
-        stmt.setString(4, null);
+        stmt.setString(2, voluntario.getLogin());
+        stmt.setString(3, voluntario.getEmail());
+        stmt.setInt(4, voluntario.getCodpatente());
         stmt.setString(5, voluntario.getSenha());
-        stmt.setString(6, null);
+        stmt.setString(6, voluntario.getSexo());
+        stmt.setInt(7, voluntario.getExperiencia());
         
         stmt.execute();
         stmt.close();

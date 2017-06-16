@@ -45,17 +45,19 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		
 		
 		String nome = request.getParameter("nome");//pega os parametros 
-		String login = request.getParameter("email");
+		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
-		
-		Voluntario voluntario = new Voluntario(nome, login, null, null, null);
+		String sexo = request.getParameter("sexo");
+		String email = request.getParameter("email");
+		//String login, String nome, String senha, String email, String sexo
+		Voluntario voluntario = new Voluntario(nome, login, senha, email, sexo);
 		try {
 			voluntarioDao.insere(voluntario);
 		} catch (SQLException e) {
 			//TODO tratar amigavelmente
 			e.printStackTrace();
 		}
-		response.sendRedirect("EventoServlet");
+		response.sendRedirect("LoginServlet");
 	}
 
 

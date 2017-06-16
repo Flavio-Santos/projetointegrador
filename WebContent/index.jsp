@@ -56,9 +56,19 @@
 
                     <form action="CadastrarUsuarioServlet" method="post" class="col s12">
                         <div class="row">
+                        	<div class="input-field col l12">
+                                <input id="login" type="text" class="validate" name="login">
+                                <label for="login">Login</label>
+                            </div>
+                        
                             <div class="input-field col l12">
                                 <input id="nome" type="text" class="validate" name="nome">
-                                <label for="nome">First Name</label>
+                                <label for="nome">Nome</label>
+                            </div>
+                            
+                            <div class="input-field col l12">
+                                <input id="sexo" type="text" class="validate" name="sexo">
+                                <label for="sexo">Sexo</label>
                             </div>
             
                             <div class="row">
@@ -72,7 +82,7 @@
                         <div class="row">
                             <div class="input-field col l6">
                                 <input id="password" type="password" class="validate" name="senha">
-                                <label for="password">Password</label>
+                                <label for="password">Senha</label>
                             </div>
                     
                             <div class="input-field col l6">
