@@ -35,9 +35,9 @@ public class EventoDAO {
 	
 	
 	public void insere(Evento evento) throws SQLException{
-		Connection conexao = (Connection) Conexao.getConexao();
+		Connection conexao = Conexao.getConexao();
         String sql = "INSERT INTO Evento (Nome_evento, descricao, data_inicio, data_fim) VALUES (?,?,?,?)";
-        PreparedStatement stmt = (PreparedStatement) conexao.prepareStatement(sql);
+        PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setString(1, evento.getNomeevento());
         stmt.setString(2, evento.getDescricao());
         

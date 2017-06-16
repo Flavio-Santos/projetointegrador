@@ -36,7 +36,7 @@ public class EventoServlet extends HttpServlet {
 		try {
 			request.setAttribute("eventos", eventoDao.getEventos());
 		} catch(SQLException e){
-			request.setAttribute("mensagem", "erro");
+			request.setAttribute("mensagem", "erro no banco");
 		}
 		
 		//response.sendRedirect("/home.jsp");

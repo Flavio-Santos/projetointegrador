@@ -3,6 +3,7 @@ package br.com.iftm.projetointegrador.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +34,6 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("1");
-		response.setContentType("text/html;charset=UTF-8");
-			
 	}
 
 	/**
@@ -54,11 +53,15 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		Voluntario voluntario = new Voluntario(login, nome, senha, email, sexo);
 		try {
 			voluntarioDao.insere(voluntario);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginServlet");
+			dispatcher.forward(request, response);
 		} catch (SQLException e) {
 			//TODO tratar amigavelmente
-			e.printStackTrace();
+			response.sendRedirect("index.jsp");
+			
 		}
-		response.sendRedirect("LoginServlet");
+		
 	}
 
 

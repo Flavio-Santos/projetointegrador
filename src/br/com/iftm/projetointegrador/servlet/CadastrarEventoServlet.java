@@ -57,7 +57,6 @@ public class CadastrarEventoServlet extends HttpServlet {
 		String nomeEvento = request.getParameter("nome");//pega os parametros 
 		String dtInicio = tratarData(request.getParameter("dataInicio"));
 		String dtFim = tratarData(request.getParameter("dataFim"));
-		String xp = request.getParameter("xp");
 		String descEvento = request.getParameter("desc");
 		
 		//response.getWriter().append("<br>" + nomeEvento + "<br>"+dtInicio + "<br>"+dtFim + "<br>"+descEvento + "<br>" + xp); 
@@ -86,35 +85,6 @@ public class CadastrarEventoServlet extends HttpServlet {
 		}
 	
 		response.sendRedirect("EventoServlet");
-		
-		/*public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, CategoriaEvento categoria, Administrador admin) {
-			super();
-			this.nomeevento = nomeevento;
-			this.descricao = descricao;
-			this.idadmin = admin.getId();;
-			this.datainicio = datainicio;
-			this.datafim = datafim;
-			this.categoria = categoria;
-			categoria.assosiaEvento(this);
-			this.admin = admin;
-		}
-		
-		try{
-			Connection conexao = (Connection) Conexao.getConexao();
-			String sql="SELECT * FROM EVENTO;";
-			String sqlInsert = "Insert evento ";
-			PreparedStatement stmt=(PreparedStatement) conexao.prepareStatement(sql);
-			 ResultSet resultado = stmt.executeQuery();
-			 String desc="";
-			 while(resultado.next()){
-				 desc+= "<br>"+resultado.getString("descricao");
-			 }
-			 response.getWriter().append(desc);
-			 
-			 
-        }catch(Exception e){
-        	response.getWriter().append("<br>n foi"); 
-        }*/
 	}
 
 	/**

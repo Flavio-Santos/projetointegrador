@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.iftm.projetointegrador.dao.VoluntarioDAO;
+import br.com.iftm.projetointegrador.entity.Voluntario;
 
 /**
  * Servlet implementation class LoginServlet
@@ -40,19 +41,18 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			if (voluntarioDao.verificaLogin(login, senha)){
-				//Voluntario voluntario = voluntarioDao.getVoluntario(login);
-				sessao.setAttribute("voluntario", voluntarioDao.getVoluntario(login));
+				Voluntario voluntario = voluntarioDao.getVoluntario(login);
+				sessao.setAttribute("voluntario", voluntario);
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/EventoServlet");
 				dispatcher.forward(request, response);
 			}
 			else {
-				//response.sendRedirect("index.jsp");
+				response.sendRedirect("index.jsp");
 			}
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
-			
-			//response.sendRedirect("index.jsp");
+			response.sendRedirect("index.jsp");
 		}
 	
 	}

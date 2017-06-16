@@ -9,12 +9,12 @@ public class Evento {
 	private Integer codevento;
 	private Date datainicio;
 	private Date datafim;
-	private CategoriaEvento categoria;
+	private Categoria categoria;
 	private Voluntario administrador ;
 	private LinkedList<Voluntario> voluntarios = new LinkedList<Voluntario>();
 
 	public Evento(String descricao, String nomeevento, Integer codevento, Date datainicio, Date datafim,
-			CategoriaEvento categoria, Voluntario administrador) {
+			Categoria categoria, Voluntario administrador) {
 		this.descricao = descricao;
 		this.nomeevento = nomeevento;
 		this.codevento = codevento;
@@ -51,7 +51,6 @@ public class Evento {
 	public void setNomeevento(String nomeevento) {
 		this.nomeevento = nomeevento;
 	}
-
 
 	public Date getDatainicio() {
 		return datainicio;
