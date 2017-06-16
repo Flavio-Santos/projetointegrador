@@ -1,128 +1,115 @@
--- Gera√ß√£o de Modelo f√≠sico
+-- GeraÁ„o de Modelo fÌsico
 -- Sql ANSI 2003 - brModelo.
-
 create database projeto;
 use projeto;
+-- drop database projeto;
+
 
 CREATE TABLE Evento (
-descricao text,
-dataI date,
-dataF date,
-COD_EVENTO int auto_increment PRIMARY KEY,
-Nome_evento varchar(60),
-COD_TIPOEVENTO int,
-cod_admin int
+    descricao TEXT,
+    data_inicio DATE,
+    data_fim DATE,
+    cod_evento INT AUTO_INCREMENT PRIMARY KEY,
+    nome_evento VARCHAR(50),
+    cod_categoria INT,
+    ID INT
 );
 
-select * from usuario;
 
-CREATE TABLE Administrador (
-cod_admin int auto_increment PRIMARY KEY,
-ID INT
-);
 
 CREATE TABLE Patente (
-COD_PATENTE int auto_increment PRIMARY KEY,
-EXP_NECESSARIA int,
-NOME_PATENTE varchar(20) unique
+    cod_patente INT AUTO_INCREMENT PRIMARY KEY,
+    exp_necessaria INT,
+    nome_patente VARCHAR(20)
 );
 
-CREATE TABLE Usuario_Normal (
-ativo char(1),
-cod_usuario int auto_increment PRIMARY KEY,
-ID INT,
-COD_PATENTE int,
-FOREIGN KEY(COD_PATENTE) REFERENCES Patente (COD_PATENTE)
+CREATE TABLE Categoria (
+    desc_categoria TEXT,
+    cod_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    experiencia INT,
+    nome_categoria VARCHAR(20)
 );
 
-CREATE TABLE USUARIO (
-Nome varchar(50),
-Login varchar(20) unique,
-ID INT auto_increment PRIMARY KEY,
-Senha varchar(20),
-Experiencia int,
-Sexo char(1),
-Hierarquia varchar(50)
-);
-
-select * from usuario where Login='ariel' and Senha='123';
-
-CREATE TABLE TIPO_EVENTO (
-DESC_TIPOEVENTO text,
-COD_TIPOEVENTO int auto_increment PRIMARY KEY,
-EXPERIENCIA int,
-NOME_TIPOEVENTO varchar(20)
+CREATE TABLE Voluntario (
+    Senha VARCHAR(20),
+    Nome VARCHAR(50),
+    Login VARCHAR(20) UNIQUE,
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Admin BOOLEAN DEFAULT FALSE,
+    Ativo BOOLEAN DEFAULT TRUE,
+    Email VARCHAR(50) UNIQUE,
+    Experiencia INT,
+    Sexo CHAR(1),
+    cod_patente INT,
+    FOREIGN KEY (cod_patente)
+        REFERENCES Patente (cod_patente)
 );
 
 CREATE TABLE Participacao (
-data_participacao date,
-cod_part int auto_increment PRIMARY KEY,
-cod_usuario int,
-COD_EVENTO int,
-FOREIGN KEY(cod_usuario) REFERENCES Usuario_Normal (cod_usuario),
-FOREIGN KEY(COD_EVENTO) REFERENCES Evento (COD_EVENTO)
+    data_participacao DATE,
+    cod_participacao INT AUTO_INCREMENT PRIMARY KEY,
+    participou BOOLEAN DEFAULT FALSE,
+    ID_voluntario INT,
+    cod_evento INT,
+    FOREIGN KEY (ID_voluntario)
+        REFERENCES Voluntario (ID),
+    FOREIGN KEY (cod_evento)
+        REFERENCES Evento (cod_evento)
 );
 
-ALTER TABLE Evento ADD FOREIGN KEY(COD_TIPOEVENTO) REFERENCES TIPO_EVENTO (COD_TIPOEVENTO);
-ALTER TABLE Evento ADD FOREIGN KEY(cod_admin) REFERENCES Administrador (cod_admin);
-ALTER TABLE Administrador ADD FOREIGN KEY(ID) REFERENCES USUARIO (ID);
-ALTER TABLE Usuario_Normal ADD FOREIGN KEY(ID) REFERENCES USUARIO (ID);
+ALTER TABLE Evento ADD FOREIGN KEY(cod_categoria) REFERENCES Categoria (cod_categoria);
+ALTER TABLE Evento ADD FOREIGN KEY(ID) REFERENCES Voluntario (ID);
 
 
 
--- Inser√ß√£o Patente
-insert into patente (nome_patente, exp_necessaria) values ('Soldado', 50);
-insert into patente (nome_patente, exp_necessaria) values ('Cabo', 100);
-insert into patente (nome_patente, exp_necessaria) values ('Tenente', 200);
-insert into patente (nome_patente, exp_necessaria) values ('Capitao', 500);
-insert into patente (nome_patente, exp_necessaria) values ('General', 1000);
--- Inser√ß√£o Tipo Evento
-insert into tipo_evento (nome_tipoevento, desc_tipoevento, experiencia) values ('Doa√ß√£o de Sangue', 'doa√ß√£o', 100);
-insert into tipo_evento (nome_tipoevento, desc_tipoevento, experiencia) values ('Doa√ß√£o de Roupas', 'doa√ß√£o', 20);
-insert into tipo_evento (nome_tipoevento, desc_tipoevento, experiencia) values ('Campeonatos', 'campeonato', 50);
-insert into tipo_evento (nome_tipoevento, desc_tipoevento, experiencia) values ('Doa√ß√£o de Alimentos', 'doa√ß√£o', 30);
-insert into tipo_evento (nome_tipoevento, desc_tipoevento, experiencia) values ('Doa√ß√£o de Briquedos', 'doa√ß√£o', 10);
--- Inser√ß√£o Usuario
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Ariel', 50, 'ariel', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Jose', 50, 'jose', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Maria', 50, 'maria', null, 123, 'F');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Maria', 50, 'maria123', null, 123, 'F');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Jordi', 50, 'jordi', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Flavio', 50, 'flavio', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Ronney', 50, 'ronney', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Jordana', 50, 'jordana', null, 123, 'F');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Pedro', 50, 'pedro', null, 123, 'M');
-insert into usuario (nome, Experiencia, login, hierarquia, senha, sexo) values ('Joana', 50, 'joana', null, 123, 'F');
--- Inser√ß√£o admin
-insert into administrador (id) values (1);
-insert into administrador (id) values (5);
-insert into administrador (id) values (6);
-insert into administrador (id) values (7);
-insert into administrador (id) values (8);
--- Inser√ß√£o usuario normal
-insert into usuario_normal (ativo, id, cod_patente) values ('S', 2, 1);
-insert into usuario_normal (ativo, id, cod_patente) values ('S', 3, 1);
-insert into usuario_normal (ativo, id, cod_patente) values ('S', 4, 1);
-insert into usuario_normal (ativo, id, cod_patente) values ('S', 9, 1);
-insert into usuario_normal (ativo, id, cod_patente) values ('S', 10, 1);
--- inser√ß√£o evento
-insert into evento (nome_evento, descricao, dataI, dataF, cod_tipoevento, cod_admin) values ('Doa√ß√£o de Sangue Hemocentro', 'evento de doacao de sangue', '2017-05-30', '2017-06-20', 1, 1);
-insert into evento (nome_evento, descricao, dataI, dataF, cod_tipoevento, cod_admin) values ('Doa√ß√£o de brinquedos Orfanato Santo F√©', 'evento', '2017-05-25', '2017-06-15', 5, 2);
-insert into evento (nome_evento, descricao, dataI, dataF, cod_tipoevento, cod_admin) values ('Doa√ß√£o de Roupas Instituto Ajuda', 'evento de doacao de roupas', '2017-06-28', '2017-06-30', 1, 3);
-insert into evento (nome_evento, descricao, dataI, dataF, cod_tipoevento, cod_admin) values ('Campeonato Benificente de CS', 'campeonato de cs', '2017-05-30', '2017-06-20', 1, 4);
-insert into evento (nome_evento, descricao, dataI, dataF, cod_tipoevento, cod_admin) values ('Doa√ß√£o de leite para creche', 'evento de doacao de sangue', '2017-04-25', '2017-05-30', 4, 5);
--- inser√ß√£o part
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (2, 1, '2017-05-29');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (1, 3, '2017-05-27');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (1, 2, '2017-05-28');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (3, 5, '2017-05-30');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (5, 5, '2017-05-31');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (4, 1, '2017-04-24');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (2, 3, '2017-02-17');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (3, 4, '2017-03-22');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (3, 4, '2017-05-20');
-insert into participacao (cod_usuario, cod_evento, data_participacao) values (5, 2, '2017-01-29');
+-- InserÁ„o Patente
+insert into patente (nome_patente, exp_necessaria) values ('Recruta', 0);
+insert into patente (nome_patente, exp_necessaria) values ('Soldado', 500);
+insert into patente (nome_patente, exp_necessaria) values ('Cabo', 1000);
+insert into patente (nome_patente, exp_necessaria) values ('Tenente', 2000);
+insert into patente (nome_patente, exp_necessaria) values ('Capitao', 10000);
+insert into patente (nome_patente, exp_necessaria) values ('General', 20000);
+-- InserÁ„o Categoria
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÁ„o de Sangue', 'doaÁ„o', 100);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÁ„o de Roupas', 'doaÁ„o', 20);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Campeonatos', 'campeonato', 50);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÁ„o de Alimentos', 'doaÁ„o', 30);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÁ„o de Briquedos', 'doaÁ„o', 10);
+-- InserÁ„o Voluntario
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Jose', 50, 'jose',       'email@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Ariel', 50, 'ariel',     'email1@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Maria', 50, 'maria',     'email2@email.com',1 ,123, 'F');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Maria', 50, 'maria123',  'email3@email.com',1 ,123, 'F');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Jordi', 50, 'jordi',     'email4@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Flavio', 50, 'flavio',   'email5@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Ronney', 50, 'ronney',   'email6@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Jordana', 50, 'jordana', 'email7@email.com',1 ,123, 'F');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Pedro', 50, 'pedro',     'email8@email.com',1 ,123, 'M');
+insert into Voluntario (nome, Experiencia, login,  email, cod_patente,senha, sexo) values ('Joana', 50, 'joana',     'email9@email.com',1 ,123, 'F');
+-- inserÁ„o Evento
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) values ('DoaÁ„o de Sangue Hemocentro', 'evento de doacao de sangue', '2017-05-30', '2017-06-20', 1, 1);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) values ('DoaÁ„o de brinquedos Orfanato Santo FÈ', 'evento', '2017-05-25', '2017-06-15', 5, 2);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) values ('DoaÁ„o de Roupas Instituto Ajuda', 'evento de doacao de roupas', '2017-06-28', '2017-06-30', 1, 3);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) values ('Campeonato Benificente de CS', 'campeonato de cs', '2017-05-30', '2017-06-20', 1, 4);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) values ('DoaÁ„o de leite para creche', 'evento de doacao de sangue', '2017-04-25', '2017-05-30', 4, 5);
 
+select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_evento, ID from evento;
+
+-- inserÁ„o part
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (2, 1, '2017-05-29');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (1, 3, '2017-05-27');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (1, 2, '2017-05-28');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (3, 5, '2017-05-30');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (5, 5, '2017-05-31');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (4, 1, '2017-04-24');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (2, 3, '2017-02-17');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (3, 4, '2017-03-22');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (3, 4, '2017-05-20');
+insert into participacao (ID_voluntario, cod_evento, data_participacao) values (5, 2, '2017-01-29');
+
+select * from evento;
+select * from voluntario;
+select * from Patente where cod_patente=1;
 --
 
 SELECT 

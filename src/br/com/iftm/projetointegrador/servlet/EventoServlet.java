@@ -39,10 +39,17 @@ public class EventoServlet extends HttpServlet {
 			request.setAttribute("mensagem", "erro");
 		}
 		
-		response.sendRedirect("/home.jsp");
+		//response.sendRedirect("/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
 	}
 
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+	
 }
 
 
