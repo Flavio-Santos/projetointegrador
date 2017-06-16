@@ -42,9 +42,9 @@ public class LoginServlet extends HttpServlet {
 			if (voluntarioDao.verificaLogin(login, senha)){
 				//Voluntario voluntario = voluntarioDao.getVoluntario(login);
 				sessao.setAttribute("voluntario", voluntarioDao.getVoluntario(login));
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/EventoServlet");
 				dispatcher.forward(request, response);
-				
 			}
 			else {
 				//response.sendRedirect("index.jsp");
@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 }

@@ -44,13 +44,14 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String nome = request.getParameter("nome");//pega os parametros 
-		String login = request.getParameter("login");
+		String login = request.getParameter("login");//pega os parametros 
+		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 		String sexo = request.getParameter("sexo");
 		String email = request.getParameter("email");
 		//String login, String nome, String senha, String email, String sexo
-		Voluntario voluntario = new Voluntario(nome, login, senha, email, sexo);
+		
+		Voluntario voluntario = new Voluntario(login, nome, senha, email, sexo);
 		try {
 			voluntarioDao.insere(voluntario);
 		} catch (SQLException e) {
