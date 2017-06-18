@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ import br.com.iftm.projetointegrador.entity.Categoria;
 @WebServlet("/testeCategoria")
 public class testeCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private CategoriaDAO categoariaDao = new CategoriaDAO();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,8 +34,23 @@ public class testeCategoria extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			request.setAttribute("categorias", categoariaDao.getCategorias());
+		} catch(SQLException e){
+			request.setAttribute("mensagem", "erro no banco");
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CadastraEvento.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		response.getWriter().append("Teste do getCategoria(), mostrando os getters dos atributos");
 		CategoriaDAO categoriaDao = new CategoriaDAO();
 		try {
@@ -59,14 +75,6 @@ public class testeCategoria extends HttpServlet {
 		for (int i = 0; i < categorias.size(); i++) {
 			response.getWriter().append("<br>" + categorias.get(i).getNomecategoria());
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

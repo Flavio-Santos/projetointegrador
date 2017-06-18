@@ -16,7 +16,7 @@
             <div class="navbar-fixed">
                 <nav class=" blue lighten-1 menu">
                     <div class="nav-wrapper container">
-                        <a href="#!" class="brand-logo">Logo</a>
+                        <a href="EventoServlet" class="brand-logo">Logo</a>
                         <ul class="right hide-on-med-and-down">
                             <li><a class="waves-effect waves-light" href="#modal-login">Login</a></li>
                         </ul>
@@ -30,10 +30,10 @@
             <div id="modal-login" class="modal">
 	            <form action="LoginServlet" method="post">
 	                <div class="modal-content">
-		                    <h4>Faï¿½a seu login</h4>
+		                    <h4>Faça seu login</h4>
 		                    <div class="input-field col l12">
 		                        <input id="name" type="text" class="validate" name="login">
-		                        <label for="name">Nick name</label>
+		                        <label for="name">Nome de usuário</label>
 		                    </div>
 		                    <div class="input-field col l12">
 		                        <input type="password" id="senha" class="validate" name="senha">
@@ -68,9 +68,9 @@
                             
                             <div class="col l12">
                                 <label for="sexo">Sexo</label>
-                                <select id="sexo" class="browser-default">
-                                    <option value="m">M</option>
-                                    <option value="f">F</option>
+                                <select id="sexo" class="browser-default" name="sexo">
+                                    <option value="M">M</option>
+                                    <option value="F">F</option>
                                 </select>
                             </div>
 

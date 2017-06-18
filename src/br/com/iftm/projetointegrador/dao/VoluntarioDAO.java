@@ -53,6 +53,35 @@ public class VoluntarioDAO {
 		}
 	}
 	
+	public Voluntario getVoluntario(Integer ID) throws NumberFormatException, SQLException{
+		Connection conexao = Conexao.getConexao();
+		String sql = "select * from Voluntario where ID=?;";
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setInt(1, ID);
+		ResultSet resultado = stmt.executeQuery();
+		if (resultado.next()){
+			//Pega os campos do voluntario no banco
+			String nome = resultado.getString("nome");
+			String login  = resultado.getString("login");
+			String senha = resultado.getString("senha");
+			Integer id = resultado.getInt("ID");
+			Boolean admin = resultado.getBoolean("Admin");
+			Boolean ativo = resultado.getBoolean("Ativo");
+			String email = resultado.getString("email");
+			Integer experiencia = resultado.getInt("experiencia");
+			String sexo = resultado.getString("sexo");
+			PatenteDAO patenteDAO = new PatenteDAO();
+			Integer codpatente = resultado.getInt("cod_patente");
+			Patente patente = patenteDAO.getPatente(codpatente);
+			//Cria um voluntario com os dados que foram retornados do banco
+			Voluntario voluntario = new Voluntario(login, nome, senha, id, admin, ativo, email, experiencia, sexo, patente);
+			return voluntario;
+		}
+		else {
+			return new Voluntario();
+		}
+	}
+	
 	public void insere(Voluntario voluntario) throws SQLException{
 		Connection conexao =  Conexao.getConexao();
         String sql = "insert into Voluntario (nome, login, email, cod_patente,senha, sexo, Experiencia) values"

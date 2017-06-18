@@ -21,7 +21,7 @@
           <li><a href="perfil.html">Perfil</a></li>
           <li><a href="eventos.html">Evento</a></li>
           <li><a href="ranking.html">Ranking</a></li>
-          <li><a href="CadastraEvento.jsp">Cadastrar evento</a></li>
+          <li><a href="CadastrarEventoServlet">Cadastrar evento</a></li>
           <li><a href="LogoutServlet">Sair</a></li>
         </ul>
       </div>
@@ -55,13 +55,20 @@
           
 			<c:forEach var="item" items="${eventos}">
 				<div class="caixa-eventos" >
-					<p>${item.getNomeevento()} ${mensagem}</p>
+					<p>Nome Evento: ${item.getNomeevento()} ${mensagem}</p>
 					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
+					<p>Data Fim: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
 					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
+					<p>Data Inicio: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
 					
-					<p>${item.getDescricao()}</p>
+					<p>Descrição do Evento: ${item.getDescricao()}</p>
+					
+					<p>Categoria do Evento: ${item.getNomecategoria()}</p>
+						
+					<p>Experiencia: ${item.getExperiencia()}</p>
+					
+					<p>Criador: ${item.getNomeadmin()}</p>
+					
 					<a class="waves-effect waves-light btn" href="">Participar</a>
 				</div>		
 			</c:forEach>

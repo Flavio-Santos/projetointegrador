@@ -27,6 +27,7 @@ public class Voluntario {
 		this.patente = patente;
 	}
 	
+	//Construtor usado na cadastrado de novo usuario
 	public Voluntario(String login, String nome, String senha, String email, String sexo) {
 		super();
 		this.login = login;
