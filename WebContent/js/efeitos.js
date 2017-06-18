@@ -4,4 +4,8 @@ $(document).ready(function(){
 
     //inputs
     Materialize.updateTextFields();
+    
+    //form select
+    $('select').material_select();
+
   });

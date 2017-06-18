@@ -34,6 +34,13 @@
                             <input id="nome-evento" type="text" name="nome">
                             <label for="nome-evento" >Nome Evento</label>
                         </div>
+                         <div class="col l12">
+                            <label for="sexo">Categoria</label>
+                            <select id="sexo" class="browser-default">
+                                <option value="m">M</option>
+                                <option value="f">F</option>
+                            </select>
+                        </div>
                         <div class="">
                         	<label for="dt-inicio">Data de Inicio</label>
                             <input id="dt-inicio" type="date" name="dataInicio">

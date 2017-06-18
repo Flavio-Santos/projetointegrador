@@ -30,7 +30,7 @@
             <div id="modal-login" class="modal">
 	            <form action="LoginServlet" method="post">
 	                <div class="modal-content">
-		                    <h4>Faça seu login</h4>
+		                    <h4>Faï¿½a seu login</h4>
 		                    <div class="input-field col l12">
 		                        <input id="name" type="text" class="validate" name="login">
 		                        <label for="name">Nick name</label>
@@ -66,11 +66,14 @@
                                 <label for="nome">Nome</label>
                             </div>
                             
-                            <div class="input-field col l12">
-                                <input id="sexo" type="text" class="validate" name="sexo">
+                            <div class="col l12">
                                 <label for="sexo">Sexo</label>
+                                <select id="sexo" class="browser-default">
+                                    <option value="m">M</option>
+                                    <option value="f">F</option>
+                                </select>
                             </div>
-            
+
                             <div class="row">
                                 <div class="input-field col l12">
                                     <input id="email" type="email" class="validate" name="email">
@@ -121,23 +124,23 @@
             <div class="row staff">
                 <div class="col l6 colaboradores">
                     <img src="" alt="">
-                    <p>descrição</p>
+                    <p>descriï¿½ï¿½o</p>
                 </div>
                 <div class="col l6 colaboradores">
                     <img src="" alt="">
-                    <p>descrição</p>
+                    <p>descriï¿½ï¿½o</p>
                 </div>
                 <div class="col l6 colaboradores">
                     <img src="" alt="">
-                    <p>descrição</p>
+                    <p>descriï¿½ï¿½o</p>
                 </div>
                 <div class="col l6 colaboradores">
                     <img src="" alt="">
-                    <p>descrição</p>
+                    <p>descriï¿½ï¿½o</p>
                 </div>
                 <div class="col l6 colaboradores">
                     <img src="" alt="">
-                    <p>descrição</p>
+                    <p>descriï¿½ï¿½o</p>
                 </div>
             </div>
         </main>
