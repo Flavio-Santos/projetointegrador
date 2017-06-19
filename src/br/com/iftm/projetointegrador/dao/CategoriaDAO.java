@@ -24,6 +24,7 @@ public class CategoriaDAO {
 			Integer codcategoria = resultado.getInt("cod_categoria");
 			categorias.add(new Categoria(nomecategoria, descricao, experiencia, codcategoria));
 		}
+		conexao.close();
 		return categorias;
 	}
 	
@@ -38,9 +39,11 @@ public class CategoriaDAO {
 			String descricao = resultado.getString("desc_categoria");
 			Integer experiencia = resultado.getInt("experiencia");
 			Categoria categoria = new Categoria(nomecategoria, descricao, experiencia, codcategoria);
+			conexao.close();
 			return categoria;
 		}
 		else {
+			conexao.close();
 			return new Categoria();
 		}
 	}

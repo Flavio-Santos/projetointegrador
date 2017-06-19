@@ -19,9 +19,11 @@ public class PatenteDAO {
 			String nomepatente = resultado.getString("nome_patente");
 			Integer expnecessaria = resultado.getInt("exp_necessaria");
 			Patente patente = new Patente(nomepatente, expnecessaria, codpatente);
+			conexao.close();
 			return patente;
 		}
 		else {
+			conexao.close();
 			return new Patente();
 		}
 	}

@@ -18,9 +18,11 @@ public class VoluntarioDAO {
         stmt.setString(2, senha);
 		ResultSet resultado = stmt.executeQuery();
 		if (resultado.next()){
+			conexao.close();
 			return true;
 		}
 		else {
+			conexao.close();
 			return false;
 		}
 	}
@@ -46,9 +48,11 @@ public class VoluntarioDAO {
 			Patente patente = patenteDAO.getPatente(codpatente);
 			//Cria um voluntario com os dados que foram retornados do banco
 			Voluntario voluntario = new Voluntario(login, nome, senha, codvoluntario, admin, ativo, email, experiencia, sexo, patente);
+			conexao.close();
 			return voluntario;
 		}
 		else {
+			conexao.close();
 			return new Voluntario();
 		}
 	}
@@ -74,9 +78,11 @@ public class VoluntarioDAO {
 			Patente patente = patenteDAO.getPatente(codpatente);
 			//Cria um voluntario com os dados que foram retornados do banco
 			Voluntario voluntario = new Voluntario(login, nome, senha, codvoluntario, admin, ativo, email, experiencia, sexo, patente);
+			conexao.close();
 			return voluntario;
 		}
 		else {
+			conexao.close();
 			return new Voluntario();
 		}
 	}

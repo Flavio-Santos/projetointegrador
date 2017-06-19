@@ -38,6 +38,7 @@ public class EventoDAO {
 			Evento evento = new Evento(resultado.getString(1), resultado.getString(2), dataInicio, dataFim, categoria, administrador);
 			eventos.add(evento);
 		}
+		conexao.close();
 		return eventos;
 	}
 	
