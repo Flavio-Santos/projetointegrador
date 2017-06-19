@@ -35,14 +35,13 @@ public class Evento {
 		this.administrador = administrador;
 	}
 
-	public Integer getIdadmin(){
-		return administrador.getId();
+	public Integer getCodadmin(){
+		return administrador.getCodvoluntario();
 	}
 	
 	public String getNomeadmin(){
 		return administrador.getNome();
 	}
-	
 	
 	public Integer getCodcategoria(){
 		return categoria.getCodcategoria();

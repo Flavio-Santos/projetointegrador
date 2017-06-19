@@ -18,7 +18,7 @@ public class EventoDAO {
 	
 	public List<Evento> getEventos() throws SQLException{
 		Connection conexao =  Conexao.getConexao();
-		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_evento, ID from evento;";
+		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_evento, cod_voluntario from evento;";
 		PreparedStatement stmt =  conexao.prepareStatement(sql);
 		ResultSet resultado = stmt.executeQuery();
 		List<Evento> eventos = new LinkedList<>();
@@ -33,7 +33,7 @@ public class EventoDAO {
 			CategoriaDAO categoriaDao = new CategoriaDAO();
 			Categoria categoria = categoriaDao.getCategoria(resultado.getInt("cod_categoria"));
 			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
-			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("ID"));
+			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
 			
 			Evento evento = new Evento(resultado.getString(1), resultado.getString(2), dataInicio, dataFim, categoria, administrador);
 			eventos.add(evento);
@@ -45,14 +45,14 @@ public class EventoDAO {
 	
 	public void insere(Evento evento) throws SQLException{
 		Connection conexao = Conexao.getConexao();
-        String sql = "INSERT INTO Evento (Nome_evento, descricao, data_inicio, data_fim, cod_categoria, ID) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Evento (Nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) VALUES (?,?,?,?,?,?)";
         PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setString(1, evento.getNomeevento());
         stmt.setString(2, evento.getDescricao());
         stmt.setDate(3,new Date(evento.getDatainicio().getTime()));
         stmt.setDate(4, new Date(evento.getDatafim().getTime()));
         stmt.setInt(5, evento.getCodcategoria());
-        stmt.setInt(6, evento.getIdadmin());
+        stmt.setInt(6, evento.getCodadmin());
         stmt.execute();        
         stmt.close();
         conexao.close();
