@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            <div class="caixa-vazia"></div>
+            <div class="caixa-vazia"> </div>
             <div class="row ideia">
                 <div class="col l12 container">
                     <div class="col l6">

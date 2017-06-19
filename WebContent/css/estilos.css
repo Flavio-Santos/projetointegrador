@@ -21,8 +21,7 @@
 
 .caixa-vazia {
   width: 100%;
-  height: 90%;
-  height: calc(100%-64px); }
+  height: 100%; }
 
 .ideia {
   background-color: white; }
