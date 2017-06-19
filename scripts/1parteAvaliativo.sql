@@ -16,7 +16,7 @@ FROM
     categoria c
 WHERE
     e.cod_categoria = c.cod_categoria
-        AND c.experiencia > 50;
+        AND c.experiencia > 200;
         
 SELECT 
     *
@@ -25,7 +25,7 @@ FROM
     categoria c
 WHERE
     e.cod_categoria = c.cod_categoria
-        AND c.experiencia < 50;
+        AND c.experiencia < 400;
 -- 2
 SELECT 
     *
@@ -34,7 +34,7 @@ FROM
     categoria c
 WHERE
     e.cod_categoria = c.cod_categoria
-        AND c.experiencia <= 100;
+        AND c.experiencia <= 300;
         
         
 SELECT 
@@ -60,7 +60,7 @@ SELECT
 FROM
     voluntario
 WHERE
-    email LIKE '%.com';
+    email LIKE '%@gmail.com';
 
 -- 5
 

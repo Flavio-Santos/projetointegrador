@@ -4,7 +4,7 @@ SELECT
     e.*
 FROM
     categoria c left join evento e on c.cod_categoria=e.cod_categoria
-where  c.experiencia >= 100 ;
+where  c.experiencia >= 300 ;
 -- 2 
 SELECT 
     e.*
@@ -23,14 +23,13 @@ SELECT
     v.nome,
     v.experiencia,
     p.nome_patente,
-    p.exp_necessaria,
     p.cod_patente
 FROM
     voluntario v,
     patente p
 WHERE
     v.cod_patente = p.cod_patente 
-    and v.experiencia >= 50 ;
+    and v.experiencia >= 1000 ;
     
 -- 4 
 
@@ -43,7 +42,7 @@ FROM
     voluntario v,
     participacao p
 WHERE
-    v.admin <> 1 AND v.ID = p.ID_voluntario;
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario;
     
 -- 5 
 SELECT 
@@ -54,7 +53,7 @@ FROM
     evento e,
     categoria c
 WHERE
-    v.admin <> 1 AND v.ID = p.ID_voluntario
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
         AND e.cod_evento = p.cod_evento
         AND c.cod_categoria = e.cod_categoria
 ORDER BY v.nome;
@@ -77,8 +76,8 @@ select * from categoria where cod_categoria in ( select cod_categoria from event
 SELECT  * FROM categoria c WHERE EXISTS( SELECT * FROM evento WHERE c.cod_categoria = cod_categoria);
 
 -- 4
-select * from  participacao where id_voluntario in ( select id from voluntario);
-select * from  participacao where exists ( select id from voluntario where id_voluntario=id);
+select * from  participacao where cod_voluntario in ( select cod_voluntario from voluntario);
+select * from  participacao where exists ( select cod_voluntario from voluntario where cod_voluntario=cod_voluntario);
 
 -- 5
 select * from patente where cod_patente in ( select cod_patente from voluntario);
@@ -86,11 +85,11 @@ select * from patente p where not exists ( select cod_patente from voluntario wh
 
 
 
--- 10 consultas utilizando funções agregadas, cláusula group by e having.
+-- 10 consultas utilizando fun��es agregadas, cláusula group by e having.
 
 
 -- 1
-select max(experiencia) from voluntario;
+select max(experiencia), cod_patente from voluntario group by cod_patente;
 select max(experiencia) from categoria;
 
 -- 2
@@ -102,7 +101,7 @@ FROM
     evento e,
     categoria c
 WHERE
-    v.admin <> 1 AND v.ID = p.ID_voluntario
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
         AND e.cod_evento = p.cod_evento
         AND c.cod_categoria = e.cod_categoria
 group by nome
@@ -121,7 +120,7 @@ FROM
     evento e,
     categoria c
 WHERE
-    v.admin <> 1 AND v.ID = p.ID_voluntario
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
         AND e.cod_evento = p.cod_evento
         AND c.cod_categoria = e.cod_categoria
 GROUP BY nome
@@ -187,12 +186,12 @@ update voluntario set experiencia = experiencia * 2;
 
 -- 2
 select * from voluntario ;
-update voluntario set experiencia = 500 where id=5;
+update voluntario set experiencia = 500 where cod_voluntario=5;
 
 -- 3
-update voluntario set cod_patente=(select cod_patente from patente where experiencia=exp_necessaria) where id = 5;
+update voluntario set cod_patente=(select cod_patente from patente where experiencia=exp_necessaria) where cod_voluntario = 5;
 -- 4
-update voluntario set ativo=0 where id in ( select id_voluntario from participacao ) and sexo='F';
+update voluntario set ativo=0 where cod_voluntario in ( select cod_voluntario from participacao ) and sexo='F';
 
 -- 5 
 update categoria set experiencia = experiencia * 1.5 where  exists ( select * from evento e where e.cod_evento=cod_evento);
