@@ -100,6 +100,7 @@ public class CadastrarEventoServlet extends HttpServlet {
 		Evento evento = new Evento(nomeevento, descricao, dataInicio, dataFim, categoria, administrador);
 		try {
 			eventoDao.insere(evento);
+			
 		} catch (SQLException e) {
 			//TODO tratar amigavelmente
 			e.printStackTrace();

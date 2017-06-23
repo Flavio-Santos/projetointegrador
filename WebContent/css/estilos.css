@@ -21,7 +21,7 @@
 
 .caixa-vazia {
   width: 100%;
-  height: 100%; }
+  margin-top: 40%; }
 
 .ideia {
   background-color: white; }
@@ -38,6 +38,22 @@
   margin-top: 2%;
   width: 30%;
   border: 3px solid #49677F; }
+
+.titulos {
+  font-size: 2em;
+  color: #42A5F5; }
+
+.tamanho-imagem {
+  width: 100px;
+  height: 350px; }
+
+.cor-letra-padrao {
+  color: #42A5F5;
+  font-size: 2em;
+  font-weight: bold; }
+
+.ajusta-ancora {
+  padding-top: 3em; }
 
 .input-field label {
   color: #42A5F5; }
@@ -106,3 +122,24 @@ input {
 
 .aaateste {
   color: black; }
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px; }
+
+.meu-container {
+  width: 100%;
+  padding-left: 10%; }
+
+.desenvol {
+  background-color: #eff2f7;
+  width: 100%;
+  padding-left: 15%;
+  margin-top: -3%; }
+
+.img-colaboradores {
+  margin-left: 15%; }
+  .img-colaboradores img {
+    width: 100px;
+    height: 100px; }
