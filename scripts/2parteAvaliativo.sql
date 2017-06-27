@@ -1,4 +1,4 @@
--- 5 Consultas com junção de Tabelas, utilizar condições 
+-- 5 Consultas com junÃ§Ã£o de Tabelas, utilizar condiÃ§Ãµes use projeto
 -- 1
 SELECT 
     e.*
@@ -59,7 +59,7 @@ WHERE
 ORDER BY v.nome;
 
 
--- )5 Consultas com operador IN /  5 representação das mesmas consultas da letra b com operador Exists
+-- )5 Consultas com operador IN /  5 representaÃ§Ã£o das mesmas consultas da letra b com operador Exists
 
 -- 1
 SELECT * FROM patente WHERE nome_patente IN ('Recruta' , 'Tenente');
@@ -85,7 +85,7 @@ select * from patente p where not exists ( select cod_patente from voluntario wh
 
 
 
--- 10 consultas utilizando fun��es agregadas, cláusula group by e having.
+-- 10 consultas utilizando funções agregadas, clÃ¡usula group by e having.
 
 
 -- 1
@@ -178,7 +178,7 @@ FROM
 GROUP BY sexo;
 
 
--- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a cláusula select
+-- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a clÃ¡usula select
 
 -- 1
 update voluntario set experiencia = experiencia * 2;
@@ -196,9 +196,45 @@ update voluntario set ativo=0 where cod_voluntario in ( select cod_voluntario fr
 -- 5 
 update categoria set experiencia = experiencia * 1.5 where  exists ( select * from evento e where e.cod_evento=cod_evento);
 
--- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a cláusula select
+
+update voluntario set experiencia = 100 , cod_patente=1 where cod_voluntario=7;
+-- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a clÃ¡usula select
+
 --  3 exemplos de INSERT + SELECT, 2 exemplos de CREATE+SELECT
--- 5 exemplos de tabelas temporárias.
 
 
+-- 5 exemplos de tabelas temporÃ¡rias.
+-- 2
+create temporary table LogTeste(
+	tempo TIMESTAMP,
+    user varchar(50)
+    );
+ desc LogTeste;
+ select * from  LogTeste;
 
+insert into LogTeste(select current_date(),CURRENT_USER())
+-- 3
+create temporary table Vm(
+    user varchar(50),
+    sexo char(1)
+    );
+    
+    insert into Vm(select nome,sexo from voluntario where sexo='M');
+    select * from Vm;
+-- 4
+create temporary table usuariosEvento(
+    nome varchar(50),
+    cod_user int
+    );
+    
+    insert into usuariosEvento(select nome,cod_voluntario from voluntario where cod_voluntario in (select cod_voluntario from participacao));
+    select * from usuariosEvento;
+-- 5
+create temporary table patentesUser(
+    nome varchar(50),
+    patente varchar(50)
+    );
+    insert into patentesUser(select a.nome,p.nome_patente from voluntario a , patente p where a.cod_patente=p.cod_patente);
+    select * from patentesUser;
+    select * from patente;
+show create table mysql.general_log;
