@@ -199,11 +199,113 @@ update categoria set experiencia = experiencia * 1.5 where  exists ( select * fr
 
 update voluntario set experiencia = 100 , cod_patente=1 where cod_voluntario=7;
 -- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a clÃ¡usula select
+-- 1
+delete from voluntario where cod_patente = (select cod_patente from patente where nome_patente = "General");
+-- 2
+delete from patente where nome_patente = "General";
+-- 3
+delete
+	from evento 
+    where cod_categoria = (
+		select cod_categoria 
+        from categoria 
+        where nome_categoria = "Campeonato"
+        );
+-- 4
+delete
+	from evento
+    where experiencia = (
+		select max(experiencia)
+        from categoria
+    );
+-- 5
+delete from participacao where cod_voluntario not in(select cod_voluntario from voluntario);
 
 --  3 exemplos de INSERT + SELECT, 2 exemplos de CREATE+SELECT
 
+-- 1
+create table mVoluntario(
+	select * from voluntario where sexo="m"
+);
+
+-- 2
+create table oldEvento(
+	select * from evento where data_fim <= "2017-06-15"
+);
+
+-- 3
+insert into mVoluntario(
+	select * from voluntario where Experiencia <= 3000
+);
+
+-- 4
+insert into oldEvento(
+	select * from evento where month(data_inicio) = 5
+);
+
+-- 5
+insert into oldEvento(
+	select * from evento where cod_evento = 2
+);
 
 -- 5 exemplos de tabelas temporÃ¡rias.
+/*
+CREATE TABLE Evento (
+    descricao TEXT,
+    data_inicio DATE,
+    data_fim DATE,
+    cod_evento INT AUTO_INCREMENT PRIMARY KEY,
+    nome_evento VARCHAR(100),
+    cod_categoria INT,
+    cod_voluntario INT
+);*/
+-- 5 exemplos de tabelas temporÃ¡rias.
+-- 1
+create temporary table Ranking (
+	posicao int auto_increment not null primary key,
+	nome varchar(50) not null,
+    experiencia int
+);
+
+insert into ranking (nome, experiencia) (
+	SELECT   v.nome,
+		SUM(c.experiencia) AS total
+	FROM
+		voluntario v,
+		participacao p,
+		evento e,
+		categoria c
+	WHERE
+		v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+			AND e.cod_evento = p.cod_evento
+			AND c.cod_categoria = e.cod_categoria
+	GROUP BY nome
+	HAVING total > 100
+	ORDER BY total desc
+);
+
+SELECT   v.nome,
+    SUM(c.experiencia) AS total
+FROM
+    voluntario v,
+    participacao p,
+    evento e,
+    categoria c
+WHERE
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+        AND e.cod_evento = p.cod_evento
+        AND c.cod_categoria = e.cod_categoria
+GROUP BY nome
+HAVING total > 100
+ORDER BY total desc;
+
+
+SELECT count(1), nome from voluntario group by nome;
+
+select * from ranking
+
+
+
 -- 2
 create temporary table LogTeste(
 	tempo TIMESTAMP,
