@@ -23,7 +23,6 @@ public class Evento {
 		this.datafim = datafim;
 		this.categoria = categoria;
 		this.administrador = administrador;
-		
 	}
 	
 	//Construtor quando se cria uma categoria para inseri-lá no banco de dados
