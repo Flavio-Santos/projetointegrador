@@ -1,4 +1,4 @@
--- 5 Consultas com junção de Tabelas, utilizar condições 
+-- 5 Consultas com junÃ§Ã£o de Tabelas, utilizar condiÃ§Ãµes 
 -- 1
 SELECT 
     e.*
@@ -59,7 +59,7 @@ WHERE
 ORDER BY v.nome;
 
 
--- )5 Consultas com operador IN /  5 representação das mesmas consultas da letra b com operador Exists
+-- )5 Consultas com operador IN /  5 representaÃ§Ã£o das mesmas consultas da letra b com operador Exists
 
 -- 1
 SELECT * FROM patente WHERE nome_patente IN ('Recruta' , 'Tenente');
@@ -85,7 +85,7 @@ select * from patente p where not exists ( select cod_patente from voluntario wh
 
 
 
--- 10 consultas utilizando fun��es agregadas, cláusula group by e having.
+-- 10 consultas utilizando funções agregadas, clÃ¡usula group by e having.
 
 
 -- 1
@@ -178,11 +178,10 @@ FROM
 GROUP BY sexo;
 
 
--- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a cláusula select
+-- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a clÃ¡usula select
 
 -- 1
 update voluntario set experiencia = experiencia * 2;
-
 
 -- 2
 select * from voluntario ;
@@ -196,9 +195,107 @@ update voluntario set ativo=0 where cod_voluntario in ( select cod_voluntario fr
 -- 5 
 update categoria set experiencia = experiencia * 1.5 where  exists ( select * from evento e where e.cod_evento=cod_evento);
 
--- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a cláusula select
+-- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a clÃ¡usula select
+-- 1
+delete from voluntario where cod_patente = (select cod_patente from patente where nome_patente = "General");
+-- 2
+delete from patente where nome_patente = "General";
+-- 3
+delete
+	from evento 
+    where cod_categoria = (
+		select cod_categoria 
+        from categoria 
+        where nome_categoria = "Campeonato"
+        );
+-- 4
+delete
+	from evento
+    where experiencia = (
+		select max(experiencia)
+        from categoria
+    );
+-- 5
+delete from participacao where cod_voluntario not in(select cod_voluntario from voluntario);
+
 --  3 exemplos de INSERT + SELECT, 2 exemplos de CREATE+SELECT
--- 5 exemplos de tabelas temporárias.
+
+-- 1
+create table mVoluntario(
+	select * from voluntario where sexo="m"
+);
+
+-- 2
+create table oldEvento(
+	select * from evento where data_fim <= "2017-06-15"
+);
+
+-- 3
+insert into mVoluntario(
+	select * from voluntario where Experiencia <= 3000
+);
+
+-- 4
+insert into oldEvento(
+	select * from evento where month(data_inicio) = 5
+);
+
+-- 5
+insert into oldEvento(
+	select * from evento where cod_evento = 2
+);
+
+-- 5 exemplos de tabelas temporÃ¡rias.
+/*
+CREATE TABLE Evento (
+    descricao TEXT,
+    data_inicio DATE,
+    data_fim DATE,
+    cod_evento INT AUTO_INCREMENT PRIMARY KEY,
+    nome_evento VARCHAR(100),
+    cod_categoria INT,
+    cod_voluntario INT
+);*/
+
+create temporary table Ranking (
+	posicao int auto_increment not null primary key,
+	nome varchar(50) not null,
+    experiencia int
+);
+
+insert into ranking (nome, experiencia) (
+	SELECT   v.nome,
+		SUM(c.experiencia) AS total
+	FROM
+		voluntario v,
+		participacao p,
+		evento e,
+		categoria c
+	WHERE
+		v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+			AND e.cod_evento = p.cod_evento
+			AND c.cod_categoria = e.cod_categoria
+	GROUP BY nome
+	HAVING total > 100
+	ORDER BY total desc
+);
+
+SELECT   v.nome,
+    SUM(c.experiencia) AS total
+FROM
+    voluntario v,
+    participacao p,
+    evento e,
+    categoria c
+WHERE
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+        AND e.cod_evento = p.cod_evento
+        AND c.cod_categoria = e.cod_categoria
+GROUP BY nome
+HAVING total > 100
+ORDER BY total desc;
 
 
+SELECT count(1), nome from voluntario group by nome;
 
+select * from ranking
