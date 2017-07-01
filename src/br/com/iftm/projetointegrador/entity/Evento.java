@@ -35,6 +35,9 @@ public class Evento {
 		this.categoria = categoria;
 		this.administrador = administrador;
 	}
+	
+	public Evento() {
+	}
 
 	public Integer getCodadmin(){
 		return administrador.getCodvoluntario();
