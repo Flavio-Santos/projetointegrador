@@ -83,7 +83,33 @@ public class EventoDAO {
     }
 
 
-
+	public void insereParticipacao(Evento evento, Voluntario voluntario) throws SQLException{
+		Connection conexao = Conexao.getConexao();
+        String sql = "INSERT INTO Participacao (cod_voluntario, cod_evento, data_participacao) VALUES (?,?,?)";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, voluntario.getCodvoluntario());
+        stmt.setInt(2, evento.getCodevento());
+        stmt.setDate(3, new Date(new java.util.Date().getTime()));
+        stmt.execute();        
+        stmt.close();
+        conexao.close();
+	}
 	
-
+	public void recuperaParticipacao(Evento evento) throws SQLException{
+		Connection conexao = Conexao.getConexao();
+        String sql = "select cod_voluntario from participacao where cod_evento = ?;";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, evento.getCodevento());
+        
+        ResultSet resultado = stmt.executeQuery();
+        VoluntarioDAO voluntarioDao = new VoluntarioDAO();
+        while (resultado.next()){
+        	Voluntario voluntario = voluntarioDao.getVoluntario(resultado); 
+        	evento.associaVoluntario(voluntario);
+        }
+        
+        stmt.close();
+        conexao.close();
+	}
+	
 }

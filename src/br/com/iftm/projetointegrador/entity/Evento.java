@@ -1,8 +1,11 @@
 
 package br.com.iftm.projetointegrador.entity;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
+
+import br.com.iftm.projetointegrador.dao.EventoDAO;
 
 public class Evento {
 	private String descricao;
@@ -24,7 +27,7 @@ public class Evento {
 		this.voluntarios.add(0,administrador);
 		administrador.associaEvento(this);
 	}
-		
+	EventoDAO eventoDao = new EventoDAO();
 	//Construtor quando se pega um Evento do banco de dados
 	public Evento(String descricao, String nomeevento, Integer codevento, Date datainicio, Date datafim,
 			Categoria categoria, Voluntario administrador) {
@@ -35,6 +38,12 @@ public class Evento {
 		this.datafim = datafim;
 		this.categoria = categoria;
 		this.voluntarios.add(0,administrador);
+		
+		/*try {
+			//eventoDao.recuperaParticipacao(this); erro arrumar
+		} catch (SQLException e) {
+			
+		}*/
 	}
 	
 	public Evento(){
@@ -42,11 +51,16 @@ public class Evento {
 	}
 	
 	public void associaVoluntario(Voluntario voluntatio){
-		if (this.voluntarios.size() > 0 ) {
+		if (this.voluntarios.size() > 1 ) {
 			this.voluntarios.add(voluntatio);
 		}
 	}
-
+	
+	public String getNomevoluntario(){
+		return this.voluntarios.get(1).getNome();
+	}
+	
+	
 	public Integer getCodadmin(){
 		return this.voluntarios.get(0).getCodvoluntario();
 	}

@@ -48,7 +48,13 @@ public class ParticipaServlet extends HttpServlet {
 		}
 		
 		if(voluntario != null && evento != null){
-			response.getWriter().append("é nóis 2");
+			voluntario.associaEvento(evento);
+			try {
+				eventoDao.insereParticipacao(evento, voluntario);
+			} catch (SQLException e) {
+				// TODO Tratar Excecao
+				e.printStackTrace();
+			}
 		}else {
 			response.getWriter().append("não foi dessa vez<br> nome: " + evento.getNomeevento());
 		}

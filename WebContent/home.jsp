@@ -75,7 +75,9 @@
 						<p>Experiencia: ${item.getExperiencia()}</p>
 						
 						<p>Criador: ${item.getNomeadmin()}</p>
-						<p>${item.getCodevento()}</p>
+						
+						<p>primeiro participante: ${item.getNomevoluntario()}</p>
+						
 					</div>
 			        </div>
 			        <div class="card-action">
