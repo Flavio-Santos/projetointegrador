@@ -18,9 +18,11 @@ public class VoluntarioDAO {
         stmt.setString(2, senha);
 		ResultSet resultado = stmt.executeQuery();
 		if (resultado.next()){
+			conexao.close();
 			return true;
 		}
 		else {
+			conexao.close();
 			return false;
 		}
 	}
@@ -35,7 +37,7 @@ public class VoluntarioDAO {
 			//Pega os campos do voluntario no banco
 			String nome = resultado.getString("nome");
 			String senha = resultado.getString("senha");
-			Integer id = resultado.getInt("ID");
+			Integer codvoluntario = resultado.getInt("cod_voluntario");
 			Boolean admin = resultado.getBoolean("Admin");
 			Boolean ativo = resultado.getBoolean("Ativo");
 			String email = resultado.getString("email");
@@ -45,10 +47,42 @@ public class VoluntarioDAO {
 			Integer codpatente = resultado.getInt("cod_patente");
 			Patente patente = patenteDAO.getPatente(codpatente);
 			//Cria um voluntario com os dados que foram retornados do banco
-			Voluntario voluntario = new Voluntario(login, nome, senha, id, admin, ativo, email, experiencia, sexo, patente);
+			Voluntario voluntario = new Voluntario(login, nome, senha, codvoluntario, admin, ativo, email, experiencia, sexo, patente);
+			conexao.close();
 			return voluntario;
 		}
 		else {
+			conexao.close();
+			return new Voluntario();
+		}
+	}
+	
+	public Voluntario getVoluntario(Integer codvoluntario) throws NumberFormatException, SQLException{
+		Connection conexao = Conexao.getConexao();
+		String sql = "select * from Voluntario where cod_voluntario=?;";
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setInt(1, codvoluntario);
+		ResultSet resultado = stmt.executeQuery();
+		if (resultado.next()){
+			//Pega os campos do voluntario no banco
+			String nome = resultado.getString("nome");
+			String login  = resultado.getString("login");
+			String senha = resultado.getString("senha");
+			Boolean admin = resultado.getBoolean("Admin");
+			Boolean ativo = resultado.getBoolean("Ativo");
+			String email = resultado.getString("email");
+			Integer experiencia = resultado.getInt("experiencia");
+			String sexo = resultado.getString("sexo");
+			PatenteDAO patenteDAO = new PatenteDAO();
+			Integer codpatente = resultado.getInt("cod_patente");
+			Patente patente = patenteDAO.getPatente(codpatente);
+			//Cria um voluntario com os dados que foram retornados do banco
+			Voluntario voluntario = new Voluntario(login, nome, senha, codvoluntario, admin, ativo, email, experiencia, sexo, patente);
+			conexao.close();
+			return voluntario;
+		}
+		else {
+			conexao.close();
 			return new Voluntario();
 		}
 	}

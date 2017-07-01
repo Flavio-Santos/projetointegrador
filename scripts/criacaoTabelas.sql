@@ -1,3 +1,4 @@
+
 -- Geração de Modelo físico
 -- Sql ANSI 2003 - brModelo.
 create database projeto;
@@ -57,7 +58,5 @@ CREATE TABLE Participacao (
 ALTER TABLE Evento ADD FOREIGN KEY(cod_categoria) REFERENCES Categoria (cod_categoria);
 ALTER TABLE Evento ADD FOREIGN KEY(cod_voluntario) REFERENCES Voluntario (cod_voluntario);
 
-    
-            
             
             

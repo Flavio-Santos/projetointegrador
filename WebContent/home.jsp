@@ -18,10 +18,10 @@
       <div class="nav-wrapper">
         <a href="EventoServlet" class="brand-logo">Logo</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="perfil.html">Perfil</a></li>
-          <li><a href="eventos.html">Evento</a></li>
-          <li><a href="ranking.html">Ranking</a></li>
-          <li><a href="CadastraEvento.jsp">Cadastrar evento</a></li>
+          <li><a href="perfil.jsp">Perfil</a></li>
+          <li><a href="eventos.jsp">Evento</a></li>
+          <li><a href="Ranking.jsp">Ranking</a></li>
+          <li><a href="CadastrarEventoServlet">Cadastrar evento</a></li>
           <li><a href="LogoutServlet">Sair</a></li>
         </ul>
       </div>
@@ -50,23 +50,50 @@
             </table>
           </div>
         </div>
-        <div class="col l8">
-          <p>Ultimos eventos</p>
-          
-			<c:forEach var="item" items="${eventos}">
-				<div class="caixa-eventos" >
-					<p>${item.getNomeevento()} ${mensagem}</p>
-					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
-					
-					<p><fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
-					
-					<p>${item.getDescricao()}</p>
-					<a class="waves-effect waves-light btn" href="">Participar</a>
-				</div>		
-			</c:forEach>
-			
-        </div>
+        
+        
+		<h2 class="header">Ultimos eventos</h2>
+        <c:forEach var="item" items="${eventos}">
+	        <div class="col s12 m7 l8">
+			    <div class="card horizontal">
+			      <div class="card-image">
+			        <img src="https://lorempixel.com/100/190/nature/6">
+			      </div>
+			      <div class="card-stacked">
+			        <div class="card-content">
+			          <div class="caixa-eventos" >
+						<p>${item.getNomeevento()} ${mensagem}</p>
+						
+						<p>Data Fim: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
+						
+						<p>Data Inicio: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
+						
+						<p>Descrição do Evento: ${item.getDescricao()}</p>
+						
+						<p>Categoria do Evento: ${item.getNomecategoria()}</p>
+							
+						<p>Experiencia: ${item.getExperiencia()}</p>
+						
+						<p>Criador: ${item.getNomeadmin()}</p>
+						<p>${item.getCodevento()}</p>
+					</div>
+			        </div>
+			        <div class="card-action">
+			        	<form action="ParticipaServlet" method="post">
+			        		<input type="hidden" name="id" value="${item.getCodevento()}">
+			        		<button type="submit">
+			        			<a class="waves-effect waves-light btn">Participar</a>
+			        		</button>
+			        		
+			        	</form>
+			          
+			        </div>
+			      </div>
+			    </div>
+			    
+			</div>
+        </c:forEach>
+
       </div>
 
     </main>

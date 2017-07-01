@@ -1,25 +1,25 @@
 package br.com.iftm.projetointegrador.servlet;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
-import br.com.iftm.projetointegrador.dao.Conexao;
+import br.com.iftm.projetointegrador.dao.CategoriaDAO;
 import br.com.iftm.projetointegrador.dao.EventoDAO;
+import br.com.iftm.projetointegrador.entity.Categoria;
 import br.com.iftm.projetointegrador.entity.Evento;
+import br.com.iftm.projetointegrador.entity.Voluntario;
 
 /**
  * Servlet implementation class CadastrarEventoServlet
@@ -27,13 +27,8 @@ import br.com.iftm.projetointegrador.entity.Evento;
 @WebServlet("/CadastrarEventoServlet")
 public class CadastrarEventoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private CategoriaDAO categoriaDao = new CategoriaDAO();
 	private EventoDAO eventoDao = new EventoDAO();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CadastrarEventoServlet() {
-        super();
-    }
 
     public String tratarData(String s){
     	if (s.charAt(4) == '-'){
@@ -53,14 +48,32 @@ public class CadastrarEventoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			request.setAttribute("categorias", categoriaDao.getCategorias());
+		} catch(SQLException e){
+			request.setAttribute("mensagem", "erro no banco");
+		}
 		
-		String nomeEvento = request.getParameter("nome");//pega os parametros 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CadastraEvento.jsp");
+		dispatcher.forward(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		String nomeevento = request.getParameter("nome");//pega os parametros 
+		String codcategoria = request.getParameter("categoria");
+		Integer codcat = Integer.parseInt(codcategoria);
 		String dtInicio = tratarData(request.getParameter("dataInicio"));
 		String dtFim = tratarData(request.getParameter("dataFim"));
-		String xp = request.getParameter("xp");
-		String descEvento = request.getParameter("desc");
+		String descricao = request.getParameter("desc");
 		
-		//response.getWriter().append("<br>" + nomeEvento + "<br>"+dtInicio + "<br>"+dtFim + "<br>"+descEvento + "<br>" + xp); 
+		HttpSession sessao = request.getSession();
+		Voluntario administrador = (Voluntario) sessao.getAttribute("voluntario");
 		
 		DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -75,54 +88,28 @@ public class CadastrarEventoServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//response.getWriter().append("<br>______<br>"+nomeEvento + "<br>"+dataInicio + "<br>"+ dataFim + "<br>"+ descEvento + "<br>"+xp); 
-		Evento evento = new Evento(nomeEvento, descEvento, dataInicio, dataFim);
-		
+		Categoria categoria = null;
+		try {
+			categoria = categoriaDao.getCategoria(codcat);
+		} catch (SQLException e1) {
+			// Efetuar tratament amigavel
+			e1.printStackTrace();
+		}
+
+		//Evento evento = new Evento(nomeevento, descricao, dataInicio, dataFim, categoria);
+		Evento evento = new Evento(nomeevento, descricao, dataInicio, dataFim, categoria, administrador);
 		try {
 			eventoDao.insere(evento);
+			
 		} catch (SQLException e) {
 			//TODO tratar amigavelmente
 			e.printStackTrace();
 		}
-	
+		
 		response.sendRedirect("EventoServlet");
 		
-		/*public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, CategoriaEvento categoria, Administrador admin) {
-			super();
-			this.nomeevento = nomeevento;
-			this.descricao = descricao;
-			this.idadmin = admin.getId();;
-			this.datainicio = datainicio;
-			this.datafim = datafim;
-			this.categoria = categoria;
-			categoria.assosiaEvento(this);
-			this.admin = admin;
-		}
-		
-		try{
-			Connection conexao = (Connection) Conexao.getConexao();
-			String sql="SELECT * FROM EVENTO;";
-			String sqlInsert = "Insert evento ";
-			PreparedStatement stmt=(PreparedStatement) conexao.prepareStatement(sql);
-			 ResultSet resultado = stmt.executeQuery();
-			 String desc="";
-			 while(resultado.next()){
-				 desc+= "<br>"+resultado.getString("descricao");
-			 }
-			 response.getWriter().append(desc);
-			 
-			 
-        }catch(Exception e){
-        	response.getWriter().append("<br>n foi"); 
-        }*/
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("EventoServlet");
+		//dispatcher.forward(request, response);
 	}
 
 }

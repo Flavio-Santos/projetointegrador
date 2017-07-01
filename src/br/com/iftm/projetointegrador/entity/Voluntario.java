@@ -4,7 +4,7 @@ public class Voluntario {
 	private String login;
 	private String nome;
 	private String senha;
-	private Integer id;
+	private Integer codvoluntario;
 	private String email;
 	private String sexo;
 	private Boolean admin = false;
@@ -12,13 +12,13 @@ public class Voluntario {
 	private Integer experiencia = 0;
 	private Patente patente = new Patente("Recruta", 0, 1);
 	
-	public Voluntario(String login, String nome, String senha, Integer id, Boolean admin, Boolean ativo, String email,
+	public Voluntario(String login, String nome, String senha, Integer codvoluntario, Boolean admin, Boolean ativo, String email,
 			Integer experiencia, String sexo, Patente patente) {
 		super();
 		this.login = login;
 		this.nome = nome;
 		this.senha = senha;
-		this.id = id;
+		this.codvoluntario = codvoluntario;
 		this.admin = admin;
 		this.ativo = ativo;
 		this.email = email;
@@ -27,6 +27,7 @@ public class Voluntario {
 		this.patente = patente;
 	}
 	
+	//Construtor usado na cadastrado de novo usuario
 	public Voluntario(String login, String nome, String senha, String email, String sexo) {
 		super();
 		this.login = login;
@@ -70,14 +71,6 @@ public class Voluntario {
 		this.senha = senha;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Boolean getAdmin() {
 		return admin;
 	}
@@ -117,6 +110,9 @@ public class Voluntario {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	
+
+	public Integer getCodvoluntario() {
+		return codvoluntario;
+	}	
 	
 }

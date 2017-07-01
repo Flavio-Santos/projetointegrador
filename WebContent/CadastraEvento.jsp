@@ -29,11 +29,22 @@
         <main>
             <div class="row">
                 <div class="col l6 offset-l3">
-                    <form action="CadastrarEventoServlet" class="form" method="get" >
+                    <form action="CadastrarEventoServlet" class="form" method="post" >
                         <div class="input-field">
                             <input id="nome-evento" type="text" name="nome">
                             <label for="nome-evento" >Nome Evento</label>
                         </div>
+                         <div class="col l12">
+                            <label for="sexo">Categoria</label>
+                            
+                            <select id="categoria" class="browser-default" name="categoria">
+	                            <c:forEach var="categoria" items="${categorias}">
+		                            <option value="${categoria.getCodcategoria()}">${categoria.getNomecategoria()}</option>	
+								</c:forEach>					
+                            </select>
+                            
+                        </div>
+                        
                         <div class="">
                         	<label for="dt-inicio">Data de Inicio</label>
                             <input id="dt-inicio" type="date" name="dataInicio">
@@ -41,10 +52,6 @@
                         <div class="">
                             <label for="dt-fim">Data de fim</label>
                             <input id="dt-fim" type="date" name="dataFim">
-                        </div>
-                        <div class="input-field">
-                            <input id="xp" type="text" name="xp">
-                            <label for="xp">Experiência</label>
                         </div>
                         <div class="input-field">
                             <input id="desc-evento" type="text" name="desc">
