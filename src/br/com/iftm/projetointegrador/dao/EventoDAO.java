@@ -35,14 +35,37 @@ public class EventoDAO {
 			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
 			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
 			
-			Evento evento = new Evento(resultado.getString(1), resultado.getString(2), dataInicio, dataFim, categoria, administrador);
+			Evento evento = new Evento(resultado.getString(1), resultado.getString(2), resultado.getInt("cod_evento"),dataInicio, dataFim, categoria, administrador);
 			eventos.add(evento);
 		}
 		conexao.close();
 		return eventos;
 	}
 	
-	
+	public Evento getEvento(Integer id) throws NumberFormatException, SQLException {
+		Connection conexao =  Conexao.getConexao();
+		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_voluntario from evento where cod_evento = ?;";
+		PreparedStatement stmt =  conexao.prepareStatement(sql);
+		stmt.setInt(1, id);
+		ResultSet resultado = stmt.executeQuery();
+		
+		java.util.Date dataInicio;
+		java.util.Date dataFim;
+		Evento evento = new Evento();
+		if (resultado.next()){
+			dataInicio = new java.util.Date(resultado.getDate("data_inicio").getTime());
+			dataFim = new java.util.Date(resultado.getDate("data_fim").getTime());
+			
+			CategoriaDAO categoriaDao = new CategoriaDAO();
+			Categoria categoria = categoriaDao.getCategoria(resultado.getInt("cod_categoria"));
+			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
+			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
+			
+			evento = new Evento(resultado.getString("nome_evento"), resultado.getString("descricao"), id,dataInicio, dataFim, categoria, administrador);
+		}
+		conexao.close();
+		return evento;
+	}
 	
 	public void insere(Evento evento) throws SQLException{
 		Connection conexao = Conexao.getConexao();
@@ -58,5 +81,9 @@ public class EventoDAO {
         stmt.close();
         conexao.close();
     }
+
+
+
+	
 
 }

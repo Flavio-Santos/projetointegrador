@@ -52,68 +52,48 @@
         </div>
         
         
-		    <h2 class="header">Ultimos eventos</h2>
-        	<c:forEach var="item" items="${eventos}">
-        	<div class="col s12 m7 l8">
-		    
-		    <div class="card horizontal">
-		      <div class="card-image">
-		        <img src="https://lorempixel.com/100/190/nature/6">
-		      </div>
-		      <div class="card-stacked">
-		        <div class="card-content">
-		          <div class="caixa-eventos" >
-					<p>${item.getNomeevento()} ${mensagem}</p>
-					
-					<p>Data Fim: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
-					
-					<p>Data Inicio: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
-					
-					<p>Descrição do Evento: ${item.getDescricao()}</p>
-					
-					<p>Categoria do Evento: ${item.getNomecategoria()}</p>
+		<h2 class="header">Ultimos eventos</h2>
+        <c:forEach var="item" items="${eventos}">
+	        <div class="col s12 m7 l8">
+			    <div class="card horizontal">
+			      <div class="card-image">
+			        <img src="https://lorempixel.com/100/190/nature/6">
+			      </div>
+			      <div class="card-stacked">
+			        <div class="card-content">
+			          <div class="caixa-eventos" >
+						<p>${item.getNomeevento()} ${mensagem}</p>
 						
-					<p>Experiencia: ${item.getExperiencia()}</p>
-					
-					<p>Criador: ${item.getNomeadmin()}</p>
-					
-					
-				</div>
-		        </div>
-		        <div class="card-action">
-		          <a class="waves-effect waves-light btn" href="">Participar</a>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
+						<p>Data Fim: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
+						
+						<p>Data Inicio: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
+						
+						<p>Descrição do Evento: ${item.getDescricao()}</p>
+						
+						<p>Categoria do Evento: ${item.getNomecategoria()}</p>
+							
+						<p>Experiencia: ${item.getExperiencia()}</p>
+						
+						<p>Criador: ${item.getNomeadmin()}</p>
+						<p>${item.getCodevento()}</p>
+					</div>
+			        </div>
+			        <div class="card-action">
+			        	<form action="ParticipaServlet" method="post">
+			        		<input type="hidden" name="id" value="${item.getCodevento()}">
+			        		<button type="submit">
+			        			<a class="waves-effect waves-light btn">Participar</a>
+			        		</button>
+			        		
+			        	</form>
+			          
+			        </div>
+			      </div>
+			    </div>
+			    
+			</div>
         </c:forEach>
-        
-        
-        
-        <div class="col l8">
-          <p>Ultimos eventos</p>
-          
-			<c:forEach var="item" items="${eventos}">
-				<div class="caixa-eventos" >
-					<p>Nome Evento: ${item.getNomeevento()} ${mensagem}</p>
-					
-					<p>Data Fim: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatafim()}"/> ||</p>
-					
-					<p>Data Inicio: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${item.getDatainicio()}"/> ||</p>
-					
-					<p>Descrição do Evento: ${item.getDescricao()}</p>
-					
-					<p>Categoria do Evento: ${item.getNomecategoria()}</p>
-						
-					<p>Experiencia: ${item.getExperiencia()}</p>
-					
-					<p>Criador: ${item.getNomeadmin()}</p>
-					
-					<a class="waves-effect waves-light btn" href="">Participar</a>
-				</div>		
-			</c:forEach>
-			
-        </div>
+
       </div>
 
     </main>
