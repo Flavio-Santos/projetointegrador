@@ -109,22 +109,16 @@ ORDER BY v.nome;
 
 -- 3 
 SELECT 
-    COUNT(*),
-    v.nome,
-    p.data_participacao,
-    e.nome_evento,
-    SUM(c.experiencia) AS total
+	v.*
 FROM
     voluntario v,
     participacao p,
-    evento e,
-    categoria c
+    evento e
 WHERE
-    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+  v.cod_voluntario = p.cod_voluntario
         AND e.cod_evento = p.cod_evento
-        AND c.cod_categoria = e.cod_categoria
-GROUP BY nome
-HAVING total > 100
+        and e.cod_evento='1'
+-- GROUP BY nome
 ORDER BY v.nome;
 
 
