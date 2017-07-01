@@ -56,8 +56,13 @@ CREATE TABLE Participacao (
 
 ALTER TABLE Evento ADD FOREIGN KEY(cod_categoria) REFERENCES Categoria (cod_categoria);
 ALTER TABLE Evento ADD FOREIGN KEY(cod_voluntario) REFERENCES Voluntario (cod_voluntario);
+<<<<<<< HEAD
 
     
             
             
+=======
+
+            
+>>>>>>> integrador-bd-parte-cricia
             

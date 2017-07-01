@@ -8,10 +8,11 @@ insert into patente (nome_patente, exp_necessaria) values ('General', 20000);
 
 -- inserção Categoria
 insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Campeonato', 'Categoria de Campeonatos', 400);
-insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Doação de Sangue', 'Categoria Doação de Sangue', 500);
-insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Doação de Roupas', 'Categoria Doação de Roupas', 200);
-insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Doação de Alimentos', 'Categoria de Doação de Alimentos', 300);
-insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('Doação de Briquedos', 'Categoria de Doação de Brinquedos', 100);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÃ§Ã£o de Sangue', 'Categoria DoaÃ§Ã£o de Sangue', 500);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÃ§Ã£o de Roupas', 'Categoria DoaÃ§Ã£o de Roupas', 200);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÃ§Ã£o de Alimentos', 'Categoria de DoaÃ§Ã£o de Alimentos', 300);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÃ§Ã£o de Briquedos', 'Categoria de DoaÃ§Ã£o de Brinquedos', 100);
+insert into Categoria (nome_categoria, desc_categoria, experiencia) values ('DoaÃ§Ã£o de Materias escolares', 'Categoria de DoaÃ§Ã£o de Materias escolares', 100);
 
 -- inserção Voluntario
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Ariel Vieira Silva', 1000, 'ariel', 'ariel@gmail.com',3 ,123, 'M');
@@ -21,16 +22,16 @@ insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Ronney Petras', 477, 'ronney', 'ronney@gmail.com',1 ,123, 'M');
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Jose De Alcantra Nunes', 19458, 'jose', 'josealcantra123nunes@outlook.com',5 ,123, 'M');
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Maria Joaquina da Silva', 25679, 'maria', 'mariajoaquinadasilva@yahoo.com',6 ,123, 'F');
-insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Maria das Graças de Jesus', 0, 'maria123', 'mariadasgracas.dejesus@hotmail.com.br',1 ,123, 'F');
+insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Maria das GraÃ§as de Jesus', 0, 'maria123', 'mariadasgracas.dejesus@hotmail.com.br',1 ,123, 'F');
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Pedro Silva Carvalho', 1999, 'pedro', 'pedro.silva.carvalho@hotmail.com',3 ,123, 'M');
 insert into Voluntario (nome, Experiencia, login, email, cod_patente,senha, sexo) values ('Joana Alvez da Silva', 2001, 'joana', 'joanaalvez@gmail.com',4 ,123, 'F');
 
 -- inserção Evento
-insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('Doação de Sangue Hemocentro', 'Evento de doacao de sangue do hemocentro', '2017-05-30', '2017-06-20', 2, 4);
-insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('Doação de brinquedos Orfanato Santo Fé', 'Evento para arrecadar brinquedos', '2017-05-25', '2017-06-15', 5, 2);
-insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('Doação de Roupas Instituto Ajuda', 'Evento de doacao de roupas', '2017-06-28', '2017-06-30', 3, 3);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('DoaÃ§Ã£o de Sangue Hemocentro', 'Evento de doacao de sangue do hemocentro', '2017-05-30', '2017-06-20', 2, 4);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('DoaÃ§Ã£o de brinquedos Orfanato Santo FÃ©', 'Evento para arrecadar brinquedos', '2017-05-25', '2017-06-15', 5, 2);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('DoaÃ§Ã£o de Roupas Instituto Ajuda', 'Evento de doacao de roupas', '2017-06-28', '2017-06-30', 3, 3);
 insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('Campeonato Benificente de Truco', 'Campeonato de Truco', '2017-05-30', '2017-06-20', 1, 1);
-insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('Doação de leite para creche', 'Arrecadação de leite para creches', '2017-04-25', '2017-05-30', 4, 5);
+insert into evento (nome_evento, descricao, data_inicio, data_fim, cod_categoria, cod_voluntario) values ('DoaÃ§Ã£o de leite para creche', 'ArrecadaÃ§Ã£o de leite para creches', '2017-04-25', '2017-05-30', 4, 5);
 
 -- inserção participacao
 insert into participacao (cod_voluntario, cod_evento, data_participacao) values (2, 1, '2017-05-29');
