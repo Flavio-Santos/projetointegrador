@@ -4,8 +4,13 @@ public class Categoria {
 
 	private String nomecategoria;
 	private String descricao;
-	private Integer experiencia;
+	private Integer experiencia = 0;
 	private Integer codcategoria;
+	
+	public Categoria(String nome, String descricao){
+		this.nomecategoria = nome;
+		this.descricao = descricao;
+	}
 	
 	public Categoria(String nomecategoria, String descricao, Integer experiencia, Integer codcategoria) {
 		super();

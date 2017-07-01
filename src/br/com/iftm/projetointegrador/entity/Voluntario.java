@@ -1,5 +1,7 @@
 package br.com.iftm.projetointegrador.entity;
 
+import java.util.LinkedList;
+
 public class Voluntario {
 	private String login;
 	private String nome;
@@ -11,7 +13,18 @@ public class Voluntario {
 	private Boolean ativo = true;
 	private Integer experiencia = 0;
 	private Patente patente = new Patente("Recruta", 0, 1);
+	private LinkedList<Evento> eventos = new LinkedList<Evento>();
 	
+	//Construtor usado na cadastrado de novo usuario
+	public Voluntario(String login, String nome, String senha, String email, String sexo) {
+		super();
+		this.login = login;
+		this.nome = nome;
+		this.senha = senha;
+		this.email = email;
+		this.sexo = sexo;
+	}
+
 	public Voluntario(String login, String nome, String senha, Integer codvoluntario, Boolean admin, Boolean ativo, String email,
 			Integer experiencia, String sexo, Patente patente) {
 		super();
@@ -27,19 +40,14 @@ public class Voluntario {
 		this.patente = patente;
 	}
 	
-	//Construtor usado na cadastrado de novo usuario
-	public Voluntario(String login, String nome, String senha, String email, String sexo) {
-		super();
-		this.login = login;
-		this.nome = nome;
-		this.senha = senha;
-		this.email = email;
-		this.sexo = sexo;
-	}
-
 	public Voluntario() {
 	}
 
+	public void associaEvento(Evento evento){
+		this.eventos.add(evento);
+		evento.associaVoluntario(this);
+	}
+	
 	public String getLogin() {
 		return login;
 	}
@@ -113,6 +121,24 @@ public class Voluntario {
 
 	public Integer getCodvoluntario() {
 		return codvoluntario;
+	}
+
+	@Override
+	public String toString() {
+		String info = "";
+		info += "VOLUNTARIO:";
+		info += "\nNome = " + this.nome;
+		info += "\nLogin = " + this.login;
+		info += "\nEmail = " + this.email;
+		info += "\nSexo = " + this.sexo;
+		if(this.eventos.size() > 0){
+			info += "\nEVENTOS:--";
+			for(Evento e : eventos){
+				info += "\n" +  e.getNomeevento();
+			}	
+		}
+		return info;
 	}	
+	
 	
 }

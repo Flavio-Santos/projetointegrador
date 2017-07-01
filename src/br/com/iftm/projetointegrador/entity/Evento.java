@@ -10,9 +10,20 @@ public class Evento {
 	private Date datainicio;
 	private Date datafim;
 	private Categoria categoria;
-	private Voluntario administrador;
+	//O administrador é o voluntario na posicao 0
 	private LinkedList<Voluntario> voluntarios = new LinkedList<Voluntario>();
 
+	//Construtor quando se cria uma categoria para inseri-lá no banco de dados
+	public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, Categoria categoria, Voluntario administrador){
+		this.descricao = descricao;
+		this.nomeevento = nomeevento;
+		this.datainicio = datainicio;
+		this.datafim = datafim;
+		this.categoria = categoria;
+		this.voluntarios.add(0,administrador);
+		administrador.associaEvento(this);
+	}
+		
 	//Construtor quando se pega um Evento do banco de dados
 	public Evento(String descricao, String nomeevento, Integer codevento, Date datainicio, Date datafim,
 			Categoria categoria, Voluntario administrador) {
@@ -22,25 +33,21 @@ public class Evento {
 		this.datainicio = datainicio;
 		this.datafim = datafim;
 		this.categoria = categoria;
-		this.administrador = administrador;
+		this.voluntarios.add(0,administrador);
 	}
 	
-	//Construtor quando se cria uma categoria para inseri-lá no banco de dados
-	public Evento(String nomeevento, String descricao, Date datainicio, Date datafim, Categoria categoria, Voluntario administrador){
-		this.descricao = descricao;
-		this.nomeevento = nomeevento;
-		this.datainicio = datainicio;
-		this.datafim = datafim;
-		this.categoria = categoria;
-		this.administrador = administrador;
+	public void associaVoluntario(Voluntario voluntatio){
+		if (this.voluntarios.size() > 0 ) {
+			this.voluntarios.add(voluntatio);
+		}
 	}
 
 	public Integer getCodadmin(){
-		return administrador.getCodvoluntario();
+		return this.voluntarios.get(0).getCodvoluntario();
 	}
 	
 	public String getNomeadmin(){
-		return administrador.getNome();
+		return this.voluntarios.get(0).getNome();
 	}
 	
 	public Integer getCodcategoria(){
@@ -69,7 +76,7 @@ public class Evento {
 	}
 
 	public String getNomeevento() {
-		return nomeevento;
+		return this.nomeevento;
 	}
 
 	public void setNomeevento(String nomeevento) {
@@ -99,10 +106,18 @@ public class Evento {
 	public void setCodevento(Integer codevento) {
 		this.codevento = codevento;
 	}
-
 	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		String info = "";
+		info += "EVENTO:";
+		info += "\nNome = " + this.nomeevento;
+		info += "\nDescricao = " + this.descricao;
+		info += "\nData Inicio = " + this.datainicio;
+		info += "\nData Fim = " + this.datafim;
+		info += "\nCategoria = " + this.categoria.getNomecategoria();
+		info += "\nAdministrador = " + this.getNomeadmin();
+		
+		return info;
+	}	
 }
