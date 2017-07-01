@@ -14,7 +14,7 @@ FROM
     evento e ON c.cod_categoria = e.cod_categoria
 WHERE
     e.data_inicio BETWEEN '2017-05-01' AND '2017-05-30'
-        AND e.data_fim BETWEEN '2017-06-01' AND '2017-06-30'	;
+        AND e.data_fim BETWEEN '2017-06-01' AND '2017-06-30';
         
 -- 3
 
@@ -63,6 +63,7 @@ ORDER BY v.nome;
 
 -- 1
 SELECT * FROM patente WHERE nome_patente IN ('Recruta' , 'Tenente');
+
 SELECT * FROM patente WHERE exists ( select * from patente ) and nome_patente = 'Recruta' or  nome_patente ='Tenente';
     
 
@@ -76,8 +77,8 @@ select * from categoria where cod_categoria in ( select cod_categoria from event
 SELECT  * FROM categoria c WHERE EXISTS( SELECT * FROM evento WHERE c.cod_categoria = cod_categoria);
 
 -- 4
-select * from  participacao where cod_voluntario in ( select cod_voluntario from voluntario);
-select * from  participacao where exists ( select cod_voluntario from voluntario where cod_voluntario=cod_voluntario);
+select * from voluntario  where cod_voluntario not in ( select cod_voluntario from participacao );
+select * from  voluntario v where exists ( select cod_voluntario from participacao p where p.cod_voluntario=v.cod_voluntario);
 
 -- 5
 select * from patente where cod_patente in ( select cod_patente from voluntario);
@@ -90,6 +91,7 @@ select * from patente p where not exists ( select cod_patente from voluntario wh
 
 -- 1
 select max(experiencia), cod_patente from voluntario group by cod_patente;
+
 select max(experiencia) from categoria;
 
 -- 2
@@ -198,20 +200,29 @@ delete from voluntario where cod_patente = (select cod_patente from patente wher
 -- 2
 delete from patente where nome_patente = "General";
 -- 3
-delete
-	from evento 
-    where cod_categoria = (
-		select cod_categoria 
-        from categoria 
-        where nome_categoria = "Campeonato"
-        );
+	delete
+		from participacao 
+		where cod_voluntario = (
+			select 
+				cod_voluntario 
+			from 
+				voluntario
+			where 
+				nome = "Ariel"
+			);
+        
 -- 4
-delete
-	from evento
-    where experiencia = (
-		select max(experiencia)
-        from categoria
-    );
+	delete
+		from participacao 
+		where cod_evento in (
+			select 
+				cod_evento 
+			from 
+				evento
+			where 
+				nome_evento like "Doação%"
+			);
+            select * from evento;
 -- 5
 delete from participacao where cod_voluntario not in(select cod_voluntario from voluntario);
 
