@@ -1,6 +1,9 @@
 package br.com.iftm.projetointegrador.entity;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
+
+import br.com.iftm.projetointegrador.dao.VoluntarioDAO;
 
 public class Voluntario {
 	private String login;
@@ -14,6 +17,7 @@ public class Voluntario {
 	private Integer experiencia = 0;
 	private Patente patente = new Patente("Recruta", 0, 1);
 	private LinkedList<Evento> eventos = new LinkedList<Evento>();
+	private VoluntarioDAO voluntarioDao = new VoluntarioDAO();
 	
 	//Construtor usado na cadastrado de novo usuario
 	public Voluntario(String login, String nome, String senha, String email, String sexo) {
@@ -38,11 +42,21 @@ public class Voluntario {
 		this.experiencia = experiencia;
 		this.sexo = sexo;
 		this.patente = patente;
+		
 	}
 	
 	public Voluntario() {
 	}
 
+	public LinkedList<String> getNomeeventos(){
+		
+		LinkedList<String> nomes = new LinkedList<String>();
+		for (int i = 0; i < this.eventos.size(); i++){
+			nomes.add(this.eventos.get(i).getNomeevento());
+		}
+		return nomes;
+	}
+	
 	public void associaEvento(Evento evento){
 		this.eventos.add(evento);
 		evento.associaVoluntario(this);

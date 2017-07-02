@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.iftm.projetointegrador.entity.Categoria;
 import br.com.iftm.projetointegrador.entity.Evento;
+import br.com.iftm.projetointegrador.entity.Patente;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
 public class EventoDAO {
@@ -18,24 +19,13 @@ public class EventoDAO {
 	
 	public List<Evento> getEventos() throws SQLException{
 		Connection conexao =  Conexao.getConexao();
-		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_evento, cod_voluntario from evento;";
+		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_evento, cod_voluntario from evento order by cod_evento desc;";
 		PreparedStatement stmt =  conexao.prepareStatement(sql);
 		ResultSet resultado = stmt.executeQuery();
 		List<Evento> eventos = new LinkedList<>();
 		
-		java.util.Date dataInicio;
-		java.util.Date dataFim;
-		
 		while (resultado.next()){
-			dataInicio = new java.util.Date(resultado.getDate(4).getTime());
-			dataFim = new java.util.Date(resultado.getDate(5).getTime());
-			
-			CategoriaDAO categoriaDao = new CategoriaDAO();
-			Categoria categoria = categoriaDao.getCategoria(resultado.getInt("cod_categoria"));
-			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
-			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
-			
-			Evento evento = new Evento(resultado.getString(1), resultado.getString(2), resultado.getInt("cod_evento"),dataInicio, dataFim, categoria, administrador);
+			Evento evento = this.getEvento(resultado);
 			eventos.add(evento);
 		}
 		conexao.close();
@@ -44,24 +34,14 @@ public class EventoDAO {
 	
 	public Evento getEvento(Integer id) throws NumberFormatException, SQLException {
 		Connection conexao =  Conexao.getConexao();
-		String sql = "select nome_evento, descricao, cod_categoria, data_inicio, data_fim, cod_voluntario from evento where cod_evento = ?;";
+		String sql = "select nome_evento, descricao, cod_evento, cod_categoria, data_inicio, data_fim, cod_voluntario from evento where cod_evento = ?;";
 		PreparedStatement stmt =  conexao.prepareStatement(sql);
 		stmt.setInt(1, id);
 		ResultSet resultado = stmt.executeQuery();
 		
-		java.util.Date dataInicio;
-		java.util.Date dataFim;
 		Evento evento = new Evento();
 		if (resultado.next()){
-			dataInicio = new java.util.Date(resultado.getDate("data_inicio").getTime());
-			dataFim = new java.util.Date(resultado.getDate("data_fim").getTime());
-			
-			CategoriaDAO categoriaDao = new CategoriaDAO();
-			Categoria categoria = categoriaDao.getCategoria(resultado.getInt("cod_categoria"));
-			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
-			Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
-			
-			evento = new Evento(resultado.getString("nome_evento"), resultado.getString("descricao"), id,dataInicio, dataFim, categoria, administrador);
+			evento = this.getEvento(resultado);
 		}
 		conexao.close();
 		return evento;
@@ -82,27 +62,63 @@ public class EventoDAO {
         conexao.close();
     }
 
+	public Evento getEvento(ResultSet resultado) throws SQLException{
+		Evento evento = new Evento();
+		
+		java.util.Date dataInicio;
+		java.util.Date dataFim;
+		
+		String descricao = resultado.getString("descricao");
+		String nomeevento = resultado.getString("nome_evento");
+		Integer codevento  = resultado.getInt("cod_evento");
+		dataInicio = new java.util.Date(resultado.getDate("data_inicio").getTime());
+		dataFim = new java.util.Date(resultado.getDate("data_fim").getTime());
+			
+		CategoriaDAO categoriaDao = new CategoriaDAO();
+		Categoria categoria = categoriaDao.getCategoria(resultado.getInt("cod_categoria"));
+			
+		VoluntarioDAO voluntarioDao = new VoluntarioDAO();
+		Voluntario administrador = voluntarioDao.getVoluntario(resultado.getInt("cod_voluntario"));
+	
+		evento = new Evento(descricao, nomeevento, codevento, dataInicio, dataFim, categoria, administrador);
+		
+		return evento;
+	}
 
 	public void insereParticipacao(Evento evento, Voluntario voluntario) throws SQLException{
 		Connection conexao = Conexao.getConexao();
-        String sql = "INSERT INTO Participacao (cod_voluntario, cod_evento, data_participacao) VALUES (?,?,?)";
-        PreparedStatement stmt = conexao.prepareStatement(sql);
-        stmt.setInt(1, voluntario.getCodvoluntario());
-        stmt.setInt(2, evento.getCodevento());
-        stmt.setDate(3, new Date(new java.util.Date().getTime()));
-        stmt.execute();        
-        stmt.close();
+		
+		String valida = "select cod_voluntario from participacao where cod_voluntario = ? and cod_evento = ?;";
+		PreparedStatement stmt1 = conexao.prepareStatement(valida);
+        stmt1.setInt(1, voluntario.getCodvoluntario());
+		stmt1.setInt(2, evento.getCodevento());
+        ResultSet resultado = stmt1.executeQuery();
+        Boolean verificacao = true;
+        if (resultado.next()){
+        	verificacao = false;
+        }
+        if (verificacao){
+        	String sql = "INSERT INTO Participacao (cod_voluntario, cod_evento, data_participacao) VALUES (?,?,?)";
+            PreparedStatement stmt2 = conexao.prepareStatement(sql);
+            stmt2.setInt(1, voluntario.getCodvoluntario());
+            stmt2.setInt(2, evento.getCodevento());
+            stmt2.setDate(3, new Date(new java.util.Date().getTime()));
+            stmt2.execute();        
+            stmt2.close();
+        }
+		
         conexao.close();
 	}
 	
 	public void recuperaParticipacao(Evento evento) throws SQLException{
 		Connection conexao = Conexao.getConexao();
-        String sql = "select cod_voluntario from participacao where cod_evento = ?;";
+        String sql = "select * from voluntario where cod_voluntario in(select  distinct cod_voluntario from participacao where cod_evento = ? and participou = 0);";
         PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setInt(1, evento.getCodevento());
         
         ResultSet resultado = stmt.executeQuery();
         VoluntarioDAO voluntarioDao = new VoluntarioDAO();
+        
         while (resultado.next()){
         	Voluntario voluntario = voluntarioDao.getVoluntario(resultado); 
         	evento.associaVoluntario(voluntario);

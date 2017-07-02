@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			if (voluntarioDao.verificaLogin(login, senha)){
 				Voluntario voluntario = voluntarioDao.getVoluntario(login);
+				voluntarioDao.recuperaParticipacao(voluntario);
 				sessao.setAttribute("voluntario", voluntario);
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/EventoServlet");

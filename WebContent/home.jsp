@@ -47,12 +47,24 @@
                 <td>Patente</td>
                 <td>${voluntario.getNomepatente()}</td>
               </tr>
+              
+              
+              
+              <tr>
+                <td>Eventos</td>
+                <c:forEach var="i" items="${voluntario.getNomeeventos()}">
+					<td>${i}</td>
+				</c:forEach>
+                
+              </tr>
+              
             </table>
           </div>
         </div>
         
         
 		<h2 class="header">Ultimos eventos</h2>
+		
         <c:forEach var="item" items="${eventos}">
 	        <div class="col s12 m7 l8">
 			    <div class="card horizontal">
@@ -76,7 +88,31 @@
 						
 						<p>Criador: ${item.getNomeadmin()}</p>
 						
-						<p>primeiro participante: ${item.getNomevoluntario()}</p>
+						
+						
+						<!-- Modal Trigger -->
+						  <a class="waves-effect waves-light btn" href="#modal${item.getCodevento()}">Modal</a>
+						
+						  <!-- Modal Structure -->
+						  <div id="modal${item.getCodevento()}" class="modal">
+						    <div class="modal-content">
+						     
+						     	 <p>Participantes do Evento: 
+									<c:forEach var="i" items="${item.getNomevoluntarios()}">
+										<br><span>${i}</span>
+									</c:forEach>
+							
+								</p>
+						    </div>
+						    <div class="modal-footer">
+						      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">FECHAR</a>
+						    </div>
+						  </div>
+						
+					
+							
+						
+						
 						
 					</div>
 			        </div>

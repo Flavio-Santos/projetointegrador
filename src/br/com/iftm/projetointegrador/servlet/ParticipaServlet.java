@@ -51,14 +51,14 @@ public class ParticipaServlet extends HttpServlet {
 			voluntario.associaEvento(evento);
 			try {
 				eventoDao.insereParticipacao(evento, voluntario);
+				response.sendRedirect("EventoServlet");
 			} catch (SQLException e) {
 				// TODO Tratar Excecao
 				e.printStackTrace();
 			}
 		}else {
-			response.getWriter().append("não foi dessa vez<br> nome: " + evento.getNomeevento());
+			response.getWriter().append("Tem que estar logado para participar");
 		}
-		/*response.getWriter().append("Served at: ").append(request.getContextPath());*/
 	}
 
 }

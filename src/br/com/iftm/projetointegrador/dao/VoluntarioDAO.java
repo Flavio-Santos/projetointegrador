@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.iftm.projetointegrador.entity.Evento;
 import br.com.iftm.projetointegrador.entity.Patente;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
@@ -68,14 +69,14 @@ public class VoluntarioDAO {
 		Voluntario voluntario = new Voluntario();
 		
 		Integer codvoluntario = resultado.getInt("cod_voluntario");
-		String nome = resultado.getString("nome");
-		String login  = resultado.getString("login");
-		String senha = resultado.getString("senha");
+		String nome = resultado.getString("Nome");
+		String login  = resultado.getString("Login");
+		String senha = resultado.getString("Senha");
 		Boolean admin = resultado.getBoolean("Admin");
 		Boolean ativo = resultado.getBoolean("Ativo");
-		String email = resultado.getString("email");
-		Integer experiencia = resultado.getInt("experiencia");
-		String sexo = resultado.getString("sexo");
+		String email = resultado.getString("Email");
+		Integer experiencia = resultado.getInt("Experiencia");
+		String sexo = resultado.getString("Sexo");
 		PatenteDAO patenteDAO = new PatenteDAO();
 		Integer codpatente = resultado.getInt("cod_patente");
 		Patente patente = patenteDAO.getPatente(codpatente);
@@ -101,5 +102,23 @@ public class VoluntarioDAO {
         stmt.close();
         conexao.close();
     }
+	
+	public void recuperaParticipacao(Voluntario voluntario) throws SQLException{
+		Connection conexao = Conexao.getConexao();
+        String sql = "select * from evento where cod_evento in(select cod_evento from participacao where cod_voluntario = ?)";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, voluntario.getCodvoluntario());
+        
+        ResultSet resultado = stmt.executeQuery();
+        EventoDAO eventoDao = new EventoDAO();
+        
+        while (resultado.next()){
+        	Evento evento = eventoDao.getEvento(resultado);
+        	voluntario.associaEvento(evento);
+        }
+        
+        stmt.close();
+        conexao.close();
+	}
 	
 }

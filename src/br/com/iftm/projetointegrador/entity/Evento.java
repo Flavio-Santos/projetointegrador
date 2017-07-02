@@ -27,6 +27,7 @@ public class Evento {
 		this.voluntarios.add(0,administrador);
 		administrador.associaEvento(this);
 	}
+	
 	EventoDAO eventoDao = new EventoDAO();
 	//Construtor quando se pega um Evento do banco de dados
 	public Evento(String descricao, String nomeevento, Integer codevento, Date datainicio, Date datafim,
@@ -38,12 +39,11 @@ public class Evento {
 		this.datafim = datafim;
 		this.categoria = categoria;
 		this.voluntarios.add(0,administrador);
-		
-		/*try {
-			//eventoDao.recuperaParticipacao(this); erro arrumar
+		try {
+			eventoDao.recuperaParticipacao(this);
 		} catch (SQLException e) {
 			
-		}*/
+		}
 	}
 	
 	public Evento(){
@@ -51,13 +51,18 @@ public class Evento {
 	}
 	
 	public void associaVoluntario(Voluntario voluntatio){
-		if (this.voluntarios.size() > 1 ) {
+		if (this.voluntarios.size() >= 1 ) {
 			this.voluntarios.add(voluntatio);
 		}
 	}
 	
-	public String getNomevoluntario(){
-		return this.voluntarios.get(1).getNome();
+	public LinkedList<String> getNomevoluntarios(){
+		
+		LinkedList<String> nomes = new LinkedList<String>();
+		for (int i = 1; i < this.voluntarios.size(); i++){
+			nomes.add(this.voluntarios.get(i).getNome());
+		}
+		return nomes;
 	}
 	
 	
@@ -136,7 +141,10 @@ public class Evento {
 		info += "\nData Fim = " + this.datafim;
 		info += "\nCategoria = " + this.categoria.getNomecategoria();
 		info += "\nAdministrador = " + this.getNomeadmin();
-		
+		info += "\nTamanho da Lista = " + this.voluntarios.size();
+		for(Voluntario v : this.voluntarios){
+			info += "\n" +  v.getNome();
+		}
 		return info;
 	}	
 }
