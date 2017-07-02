@@ -58,6 +58,6 @@ ALTER TABLE Evento ADD FOREIGN KEY(cod_categoria) REFERENCES Categoria (cod_cate
 ALTER TABLE Evento ADD FOREIGN KEY(cod_voluntario) REFERENCES Voluntario (cod_voluntario);
 
     
-            
+select * from evento;           
             
             

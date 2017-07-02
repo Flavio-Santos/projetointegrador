@@ -1,4 +1,4 @@
--- 5 Consultas com junção de Tabelas, utilizar condições 
+-- 5 Consultas com junÃ§Ã£o de Tabelas, utilizar condiÃ§Ãµes use projeto
 -- 1
 SELECT 
     e.*
@@ -14,7 +14,7 @@ FROM
     evento e ON c.cod_categoria = e.cod_categoria
 WHERE
     e.data_inicio BETWEEN '2017-05-01' AND '2017-05-30'
-        AND e.data_fim BETWEEN '2017-06-01' AND '2017-06-30'	;
+        AND e.data_fim BETWEEN '2017-06-01' AND '2017-06-30';
         
 -- 3
 
@@ -59,10 +59,11 @@ WHERE
 ORDER BY v.nome;
 
 
--- )5 Consultas com operador IN /  5 representação das mesmas consultas da letra b com operador Exists
+-- )5 Consultas com operador IN /  5 representaÃ§Ã£o das mesmas consultas da letra b com operador Exists
 
 -- 1
 SELECT * FROM patente WHERE nome_patente IN ('Recruta' , 'Tenente');
+
 SELECT * FROM patente WHERE exists ( select * from patente ) and nome_patente = 'Recruta' or  nome_patente ='Tenente';
     
 
@@ -76,8 +77,8 @@ select * from categoria where cod_categoria in ( select cod_categoria from event
 SELECT  * FROM categoria c WHERE EXISTS( SELECT * FROM evento WHERE c.cod_categoria = cod_categoria);
 
 -- 4
-select * from  participacao where cod_voluntario in ( select cod_voluntario from voluntario);
-select * from  participacao where exists ( select cod_voluntario from voluntario where cod_voluntario=cod_voluntario);
+select * from voluntario  where cod_voluntario not in ( select cod_voluntario from participacao );
+select * from  voluntario v where exists ( select cod_voluntario from participacao p where p.cod_voluntario=v.cod_voluntario);
 
 -- 5
 select * from patente where cod_patente in ( select cod_patente from voluntario);
@@ -85,11 +86,12 @@ select * from patente p where not exists ( select cod_patente from voluntario wh
 
 
 
--- 10 consultas utilizando fun��es agregadas, cláusula group by e having.
+-- 10 consultas utilizando funções agregadas, clÃ¡usula group by e having.
 
 
 -- 1
 select max(experiencia), cod_patente from voluntario group by cod_patente;
+
 select max(experiencia) from categoria;
 
 -- 2
@@ -124,7 +126,7 @@ WHERE
         AND e.cod_evento = p.cod_evento
         AND c.cod_categoria = e.cod_categoria
 GROUP BY nome
-HAVING total > 100
+HAVING total > 500
 ORDER BY v.nome;
 
 
@@ -178,7 +180,7 @@ FROM
 GROUP BY sexo;
 
 
--- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a cláusula select
+-- 5 exemplos do comando UPDATE, 3 deles devem estar combiados com a clÃ¡usula select
 
 -- 1
 update voluntario set experiencia = experiencia * 2;
@@ -196,9 +198,158 @@ update voluntario set ativo=0 where cod_voluntario in ( select cod_voluntario fr
 -- 5 
 update categoria set experiencia = experiencia * 1.5 where  exists ( select * from evento e where e.cod_evento=cod_evento);
 
--- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a cláusula select
+
+update voluntario set experiencia = 100 , cod_patente=1 where cod_voluntario=7;
+-- 5 exemplos do comando DELETE, 3 deles devem estar combinados com a clÃ¡usula select
+-- 1
+delete from voluntario where cod_patente = (select cod_patente from patente where nome_patente = "General");
+-- 2
+delete from patente where nome_patente = "General";
+-- 3
+	delete
+		from participacao 
+		where cod_voluntario = (
+			select 
+				cod_voluntario 
+			from 
+				voluntario
+			where 
+				nome = "Ariel"
+			);
+        
+-- 4
+	delete
+		from participacao 
+		where cod_evento in (
+			select 
+				cod_evento 
+			from 
+				evento
+			where 
+				nome_evento like "Doação%"
+			);
+            select * from evento;
+-- 5
+delete from participacao where cod_voluntario not in(select cod_voluntario from voluntario);
+
 --  3 exemplos de INSERT + SELECT, 2 exemplos de CREATE+SELECT
--- 5 exemplos de tabelas temporárias.
+
+-- 1
+create table mVoluntario(
+	select * from voluntario where sexo="m"
+);
+
+-- 2
+create table oldEvento(
+	select * from evento where data_fim <= "2017-06-15"
+);
+
+-- 3
+insert into mVoluntario(
+	select * from voluntario where Experiencia <= 3000
+);
+
+-- 4
+insert into oldEvento(
+	select * from evento where month(data_inicio) = 5
+);
+
+-- 5
+insert into oldEvento(
+	select * from evento where cod_evento = 2
+);
+
+-- 5 exemplos de tabelas temporÃ¡rias.
+/*
+CREATE TABLE Evento (
+    descricao TEXT,
+    data_inicio DATE,
+    data_fim DATE,
+    cod_evento INT AUTO_INCREMENT PRIMARY KEY,
+    nome_evento VARCHAR(100),
+    cod_categoria INT,
+    cod_voluntario INT
+);*/
+-- 5 exemplos de tabelas temporÃ¡rias.
+-- 1
+create temporary table Ranking (
+	posicao int auto_increment not null primary key,
+	nome varchar(50) not null,
+    experiencia int
+);
+
+insert into ranking (nome, experiencia) (
+	SELECT   v.nome,
+		SUM(c.experiencia) AS total
+	FROM
+		voluntario v,
+		participacao p,
+		evento e,
+		categoria c
+	WHERE
+		v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+			AND e.cod_evento = p.cod_evento
+			AND c.cod_categoria = e.cod_categoria
+	GROUP BY nome
+	HAVING total > 100
+	ORDER BY total desc
+);
+
+SELECT   v.nome,
+    SUM(c.experiencia) AS total
+FROM
+    voluntario v,
+    participacao p,
+    evento e,
+    categoria c
+WHERE
+    v.admin <> 1 AND v.cod_voluntario = p.cod_voluntario
+        AND e.cod_evento = p.cod_evento
+        AND c.cod_categoria = e.cod_categoria
+GROUP BY nome
+HAVING total > 100
+ORDER BY total desc;
+
+
+SELECT count(1), nome from voluntario group by nome;
+
+select * from ranking
 
 
 
+-- 2
+create temporary table LogTeste(
+	tempo TIMESTAMP,
+    user varchar(50)
+    );
+ desc LogTeste;
+ select * from  LogTeste;
+
+insert into LogTeste(select current_date(),CURRENT_USER())
+-- 3
+create temporary table Vm(
+    user varchar(50),
+    sexo char(1)
+    );
+    
+    insert into Vm(select nome,sexo from voluntario where sexo='M');
+    select * from Vm;
+-- 4
+create temporary table usuariosEvento(
+    nome varchar(50),
+    cod_user int
+    );
+    
+    insert into usuariosEvento(select nome,cod_voluntario from voluntario where cod_voluntario in (select cod_voluntario from participacao));
+    select * from usuariosEvento;
+-- 5
+create temporary table patentesUser(
+    nome varchar(50),
+    patente varchar(50)
+    );
+    insert into patentesUser(select a.nome,p.nome_patente from voluntario a , patente p where a.cod_patente=p.cod_patente);
+    select * from patentesUser;
+    select * from patente;
+show create table mysql.general_log;
+
+select* from voluntario

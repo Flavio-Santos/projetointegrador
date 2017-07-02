@@ -1,0 +1,151 @@
+.blue.lighten-1 {
+  background-color: rgba(66, 165, 245, 0.5) !important; }
+
+.nav-wrapper a:nth-child(1) {
+  margin-left: 3%; }
+
+.body-main {
+  background-image: url("../img/back-home.jpg");
+  background-position: left top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%; }
+
+.letra {
+  color: white; }
+
+.central {
+  margin-left: 15px;
+  margin-right: 20px; }
+
+.caixa-vazia {
+  width: 100%;
+  margin-top: 40%; }
+
+.ideia {
+  background-color: white; }
+
+.staff {
+  background-color: white;
+  padding: 0 2em; }
+
+.modal-overlay {
+  background-color: #42A5F5 !important; }
+
+#modal-login {
+  margin-left: 60%;
+  margin-top: 2%;
+  width: 30%;
+  border: 3px solid #49677F; }
+
+.titulos {
+  font-size: 2em;
+  color: #42A5F5; }
+
+.tamanho-imagem {
+  width: 100px;
+  height: 350px; }
+
+.cor-letra-padrao {
+  color: #42A5F5;
+  font-size: 2em;
+  font-weight: bold; }
+
+.ajusta-ancora {
+  padding-top: 3em; }
+
+.input-field label {
+  color: #42A5F5; }
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:focus:not([readonly]) + label,
+input[type=password]:focus:not([readonly]) + label,
+input[type=email]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: gray !important; }
+
+/* label focus color */
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label {
+  color: gray; }
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #E8880C;
+  box-shadow: 0 1px 0 0 #E8880C; }
+
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000; }
+
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000; }
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000; }
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #49677F;
+  box-shadow: 0 1px 0 0 #49677F; }
+
+input {
+  color: gray !important; }
+
+.menu-lateral {
+  margin-top: 3em; }
+  .menu-lateral table {
+    background-color: gray;
+    color: white; }
+  .menu-lateral img {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    margin-left: 3em; }
+
+.caixa-eventos p:nth-child(2) {
+  float: right; }
+.caixa-eventos p:nth-child(3) {
+  float: left; }
+.caixa-eventos p:nth-child(3) {
+  float: right; }
+.caixa-eventos a {
+  margin-left: 80%; }
+
+.aaateste {
+  color: black; }
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px; }
+
+.meu-container {
+  width: 100%;
+  padding-left: 10%; }
+
+.desenvol {
+  background-color: #eff2f7;
+  width: 100%;
+  padding-left: 15%;
+  margin-top: -3%; }
+
+.img-colaboradores {
+  margin-left: 15%; }
+  .img-colaboradores img {
+    width: 100px;
+    height: 100px; }
+
+.botao {
+  background: transparent;
+  border: none; }
+
+/*# sourceMappingURL=estilos.css.map */

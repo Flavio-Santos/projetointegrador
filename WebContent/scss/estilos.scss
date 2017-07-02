@@ -166,7 +166,7 @@ input{
 .meu-container{
 	width: 100%;
 	padding-left: 10%;
-}
+} 
 .desenvol{
 	background-color: #eff2f7;
 	width: 100%;
@@ -179,4 +179,16 @@ input{
 		height: 100px;
 	}	
 	margin-left: 15%;
+}
+.botao{
+       background: transparent;
+       border: none;
+}
+.back1{
+	margin-left: 60%;
+	a{
+		background-color: $cor5 !important;
+		color: black;
+		left: 0px;
+	}
 }

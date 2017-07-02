@@ -143,3 +143,14 @@ input {
   .img-colaboradores img {
     width: 100px;
     height: 100px; }
+
+.botao {
+  background: transparent;
+  border: none; }
+
+.back1 {
+  margin-left: 60%; }
+  .back1 a {
+    background-color: #FFF60D !important;
+    color: black;
+    left: 0px; }
