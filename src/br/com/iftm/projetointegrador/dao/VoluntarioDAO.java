@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import br.com.iftm.projetointegrador.entity.Evento;
 import br.com.iftm.projetointegrador.entity.Patente;
@@ -36,12 +37,13 @@ public class VoluntarioDAO {
 		ResultSet resultado = stmt.executeQuery();
 		if (resultado.next()){
 			
-			Voluntario voluntario = getVoluntario(resultado);
+			Voluntario voluntario = this.getVoluntario(resultado);
+			stmt.close();
 			conexao.close();
 			return voluntario;
-			
 		}
 		else {
+			stmt.close();
 			conexao.close();
 			return new Voluntario();
 		}
@@ -55,7 +57,7 @@ public class VoluntarioDAO {
 		ResultSet resultado = stmt.executeQuery();
 		if (resultado.next()){
 			
-			Voluntario voluntario = getVoluntario(resultado);
+			Voluntario voluntario = this.getVoluntario(resultado);
 			conexao.close();
 			return voluntario;
 		}
@@ -121,4 +123,32 @@ public class VoluntarioDAO {
         conexao.close();
 	}
 	
+	public LinkedList<Voluntario> getRankinvoluntarios() throws SQLException{
+		Connection conexao = Conexao.getConexao();
+		String sql = "select * from Voluntario order by experiencia desc limit 4;";
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		ResultSet resultado = stmt.executeQuery();
+		
+		LinkedList<Voluntario> voluntarios = new LinkedList<Voluntario>();
+		
+		while (resultado.next()){
+			Voluntario voluntario = this.getVoluntario(resultado);
+			voluntarios.add(voluntario);
+		}
+		stmt.close();
+		conexao.close();
+		return voluntarios;
+	}
+	
+	public void atualizaVoluntario(Voluntario voluntario) throws SQLException{
+		Connection conexao =  Conexao.getConexao();
+        String sql = "update Voluntario set nome=?, senha=? where cod_voluntario = ?";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setString(1, voluntario.getNome());
+        stmt.setString(2, voluntario.getSenha());
+        stmt.setInt(3, voluntario.getCodvoluntario());
+        stmt.execute();
+        stmt.close();
+        conexao.close();
+	}
 }

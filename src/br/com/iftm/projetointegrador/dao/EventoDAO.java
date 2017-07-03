@@ -127,5 +127,16 @@ public class EventoDAO {
         stmt.close();
         conexao.close();
 	}
+
+	public void confirmaParticipacao(Evento evento, Voluntario voluntario) throws SQLException {
+		Connection conexao = Conexao.getConexao();
+		String sql = "update participacao set participou = 1 where cod_evento = ? and cod_voluntario = ?";
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, evento.getCodevento());
+        stmt.setInt(2, voluntario.getCodvoluntario());
+        stmt.execute();        
+        stmt.close();
+        conexao.close();
+	}
 	
 }

@@ -82,6 +82,27 @@ public class Evento {
 		return categoria.getNomecategoria();
 	}
 	
+	public String getNomecategoriaimg(){
+		String nomecategoria = categoria.getNomecategoria().replaceAll(" ", "");	
+		String[] nomedesmontado = nomecategoria.split("");
+		for (int i = 0; i < nomedesmontado.length; i++){
+			char c = nomedesmontado[i].charAt(0);
+			if (nomedesmontado[i].charAt(0) == 'ç'){
+				nomedesmontado[i] = "c";
+			}
+			else if (nomedesmontado[i].charAt(0) == 'ã') {
+				nomedesmontado[i] = "a";
+			}
+		}
+		
+		String nome = "";
+		for (int i = 0; i < nomedesmontado.length; i++) {
+			nome += nomedesmontado[i];
+		}
+		
+		return nome;
+	}
+	
 	public Integer getExperiencia(){
 		return categoria.getExperiencia();
 	}
