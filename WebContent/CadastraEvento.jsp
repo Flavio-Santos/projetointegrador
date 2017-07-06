@@ -13,18 +13,19 @@
 
     <body>
         <div class="navbar-fixed">
-            <nav class=" blue lighten-2">
-                <div class="nav-wrapper">
-                    <a href="home.jsp" class="brand-logo">Logo</a>
-                    <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.html">Perfil</a></li>
-                    <li><a href="eventos.html">Evento</a></li>
-                    <li><a href="ranking.html">Ranking</a></li>
-                    <li><a href="index.jsp">Sair</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+					<nav class=" blue lighten-2">
+						<div class="nav-wrapper container">
+							<a href="EventoServlet" class="brand-logo"><img src="img/logo.png" class="imgLogo" alt=""></a>
+							<ul class="right hide-on-med-and-down">
+								<li ><a href="EventoServlet">Home</a></li>
+								<li><a href="perfil.jsp">Perfil</a></li>
+								<li class="active"><a href="TodosEventosServlet">Evento</a></li>
+								<li><a href="LogoutServlet">Sair</a></li>
+							</ul>
+						</div>
+
+					</nav>
+				</div>
 
         <main>
             <div class="row">

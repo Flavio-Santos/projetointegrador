@@ -1,7 +1,7 @@
 package br.com.iftm.projetointegrador.entity;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 import br.com.iftm.projetointegrador.dao.VoluntarioDAO;
 
@@ -55,6 +55,10 @@ public class Voluntario {
 			nomes.add(this.eventos.get(i).getNomeevento());
 		}
 		return nomes;
+	}
+	
+	public List<Evento> getEventos(){
+		return eventos;
 	}
 	
 	public void associaEvento(Evento evento){
@@ -136,7 +140,11 @@ public class Voluntario {
 	public Integer getCodvoluntario() {
 		return codvoluntario;
 	}
-
+	
+	public void setCodvoluntario(Integer codvoluntario) {
+		this.codvoluntario = codvoluntario;
+	}
+	
 	@Override
 	public String toString() {
 		String info = "";

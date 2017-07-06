@@ -11,7 +11,6 @@ import java.util.List;
 
 import br.com.iftm.projetointegrador.entity.Categoria;
 import br.com.iftm.projetointegrador.entity.Evento;
-import br.com.iftm.projetointegrador.entity.Patente;
 import br.com.iftm.projetointegrador.entity.Voluntario;
 
 public class EventoDAO {
@@ -121,7 +120,7 @@ public class EventoDAO {
         
         while (resultado.next()){
         	Voluntario voluntario = voluntarioDao.getVoluntario(resultado); 
-        	evento.associaVoluntario(voluntario);
+        	evento.addVoluntario(voluntario);
         }
         
         stmt.close();
@@ -134,7 +133,8 @@ public class EventoDAO {
 		PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setInt(1, evento.getCodevento());
         stmt.setInt(2, voluntario.getCodvoluntario());
-        stmt.execute();        
+        stmt.execute();
+        
         stmt.close();
         conexao.close();
 	}

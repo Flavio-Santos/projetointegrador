@@ -44,8 +44,7 @@ public class ConfirmaParticipacao extends HttpServlet {
 		
 		if (admin.getAdmin()){
 			
-			String idstring = request.getParameter("codevento");
-			Integer idevento = Integer.parseInt(idstring);
+			Integer idevento = Integer.parseInt(request.getParameter("codevento"));
 			
 			EventoDAO eventoDao = new EventoDAO();
 			Evento evento = null;

@@ -1,8 +1,15 @@
+body {
+  font-family: Helvetica,Arial, sans-serif; }
+
 .blue.lighten-1 {
   background-color: rgba(66, 165, 245, 0.5) !important; }
 
 .nav-wrapper a:nth-child(1) {
   margin-left: 3%; }
+
+.imgLogo {
+  width: 150px;
+  height: 70px; }
 
 .body-main {
   background-image: url("../img/back-home.jpg");
@@ -38,6 +45,12 @@
   margin-top: 2%;
   width: 30%;
   border: 3px solid #49677F; }
+
+#modal-registrar.modal {
+  max-height: 75% !important; }
+
+#modal-registrar {
+  height: 80%; }
 
 .titulos {
   font-size: 2em;
@@ -100,25 +113,65 @@ textarea.materialize-textarea:focus:not([readonly]) {
 input {
   color: gray !important; }
 
-.menu-lateral {
-  margin-top: 3em; }
-  .menu-lateral table {
-    background-color: gray;
-    color: white; }
-  .menu-lateral img {
-    width: 80px;
-    height: 80px;
-    background-color: white;
-    margin-left: 3em; }
+.tipoLetra {
+  font-family: cursive;
+  margin-top: 0px; }
 
-.caixa-eventos p:nth-child(2) {
-  float: right; }
-.caixa-eventos p:nth-child(3) {
-  float: left; }
-.caixa-eventos p:nth-child(3) {
-  float: right; }
-.caixa-eventos a {
-  margin-left: 80%; }
+.menu-lateral .avatar {
+  width: 100%; }
+  .menu-lateral .avatar img {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    margin-left: 23%; }
+.menu-lateral #user {
+  margin-top: 1.5em; }
+  .menu-lateral #user .tdFixo {
+    padding-left: 1.2em; }
+  .menu-lateral #user .tdPadding {
+    padding-right: 3px; }
+  .menu-lateral #user table {
+    background-color: rgba(66, 165, 245, 0.1);
+    color: black;
+    box-shadow: 10px 10px 5px #888888;
+    border-radius: 0px 0px 0px 0px; }
+.menu-lateral #ranking {
+  margin-top: 1em; }
+  .menu-lateral #ranking img {
+    margin-left: 3%;
+    background-color: rgba(66, 165, 245, 0); }
+  .menu-lateral #ranking table {
+    background-color: rgba(66, 165, 245, 0.1);
+    color: black;
+    box-shadow: 10px 10px 5px #888888;
+    border-radius: 0px 0px 45px 45px; }
+    .menu-lateral #ranking table td {
+      padding-top: 0px; }
+    .menu-lateral #ranking table tr:nth-child(1) img {
+      width: 25px;
+      height: 25px; }
+    .menu-lateral #ranking table tr:nth-child(2) img {
+      width: 20px;
+      height: 20px; }
+    .menu-lateral #ranking table tr:nth-child(3) img {
+      width: 15px;
+      height: 15px; }
+    .menu-lateral #ranking table tr:nth-child(4) img {
+      width: 10px;
+      height: 10px; }
+
+#modal-participantes {
+  border: 3px solid #49677F; }
+
+.caixa-eventos p:nth-child(1) {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center; }
+.caixa-eventos p:nth-child(4) {
+  margin: .5em 0px;
+  padding: .2em;
+  background-color: rgba(211, 220, 234, 0.5);
+  border-radius: 10px; }
 
 .aaateste {
   color: black; }
@@ -143,3 +196,68 @@ input {
   .img-colaboradores img {
     width: 100px;
     height: 100px; }
+
+.botao {
+  background: transparent;
+  border: none; }
+
+.back1 {
+  margin-left: 60%; }
+  .back1 a {
+    background-color: #FFF60D !important;
+    color: black;
+    left: -50px; }
+
+.card .card-image img {
+  display: block;
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 134%;
+  height: auto; }
+
+.card .card-content {
+  padding: 16px;
+  border-radius: 0 0 2px 2px;
+  padding-left: 11%; }
+
+.card.horizontal .card-image img {
+  border-radius: 2px 0 0 2px;
+  max-width: 100%;
+  width: 100%; }
+
+.margemDireita {
+  margin-left: 5%; }
+
+.bAmarelo {
+  background-color: #FFF60D !important;
+  color: black; }
+
+.lista {
+  margin-left: 2em; }
+  .lista li {
+    list-style-type: disc !important; }
+
+.caixasUsuario {
+  padding: 2em; }
+  .caixasUsuario .caixa1 img {
+    width: 150px;
+    height: 150px; }
+  .caixasUsuario .caixa2 {
+    background-color: rgba(255, 246, 13, 0.2);
+    border-radius: 50px 0px 0px 50px;
+    padding-left: 4em; }
+
+.todosEventos .card.horizontal .card-image img {
+  border-radius: 2px 0 0 2px;
+  max-width: 100%;
+  width: 58%; }
+
+.novoEvento {
+  margin-top: 1em;
+  margin-right: 2em; }
+
+/*# sourceMappingURL=estilos.css.map */

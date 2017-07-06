@@ -36,7 +36,7 @@ WHERE
     e.cod_categoria = c.cod_categoria
         AND c.experiencia <= 300;
         
-        
+        select * from categoria
 SELECT 
     *
 FROM
@@ -107,4 +107,7 @@ FROM
 WHERE
     c.cod_categoria = e.cod_categoria
         AND c.experiencia <> 100;
+        
+        select * from categoria
+        update categoria set nome_categoria='Doação de Materiais Escolares' where cod_categoria=6;
         

@@ -38,18 +38,10 @@ public class Ranking extends HttpServlet {
 		} catch(SQLException e){
 			request.setAttribute("mensagem", "erro no banco");
 		}
-		try {
-			for (int i = 0; i < voluntarioDao.getRankinvoluntarios().size(); i++) {
-				response.getWriter().append("Nome: " + voluntarioDao.getRankinvoluntarios().get(i).getNome() + " exp: " + voluntarioDao.getRankinvoluntarios().get(i).getExperiencia()+"<br>");
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//response.sendRedirect("/home.jsp");
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-		//dispatcher.forward(request, response);
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

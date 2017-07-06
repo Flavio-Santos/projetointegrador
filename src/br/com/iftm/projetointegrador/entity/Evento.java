@@ -55,6 +55,9 @@ public class Evento {
 			this.voluntarios.add(voluntatio);
 		}
 	}
+	public void addVoluntario(Voluntario voluntatio){
+		voluntarios.add(voluntatio);
+	}
 	
 	public LinkedList<String> getNomevoluntarios(){
 		
@@ -150,6 +153,14 @@ public class Evento {
 
 	public void setCodevento(Integer codevento) {
 		this.codevento = codevento;
+	}
+	
+	public LinkedList<Voluntario> getVoluntarios() {
+		return voluntarios;
+	}
+	
+	public void setVoluntarios(LinkedList<Voluntario> voluntarios) {
+		this.voluntarios = voluntarios;
 	}
 	
 	@Override

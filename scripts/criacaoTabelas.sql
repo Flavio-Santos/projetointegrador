@@ -14,6 +14,8 @@ CREATE TABLE Evento (
     cod_voluntario INT
 );
 
+drop table Evento;
+
 CREATE TABLE Patente (
     cod_patente INT AUTO_INCREMENT PRIMARY KEY,
     exp_necessaria INT,
@@ -53,6 +55,8 @@ CREATE TABLE Participacao (
     FOREIGN KEY (cod_evento)
         REFERENCES Evento (cod_evento)
 );
+
+drop table participacao
 
 ALTER TABLE Evento ADD FOREIGN KEY(cod_categoria) REFERENCES Categoria (cod_categoria);
 ALTER TABLE Evento ADD FOREIGN KEY(cod_voluntario) REFERENCES Voluntario (cod_voluntario);
