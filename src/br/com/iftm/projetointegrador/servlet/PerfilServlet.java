@@ -31,33 +31,41 @@ public class PerfilServlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		
 		Voluntario voluntario = new Voluntario();
-		voluntario = (Voluntario) sessao.getAttribute("voluntario");
-		
-		if (voluntario.getAdmin()){
-			AdministradorDAO admdao = new AdministradorDAO();
-			
-			try {
-				List<Evento> eventosPorAdministrador = admdao.eventosPorAdministrador(voluntario);
-				sessao.setAttribute("eventosDoAdm", eventosPorAdministrador );
-				
-			} catch (SQLException e) {
-				
-			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp");
-			dispatcher.forward(request, response);
-			
-		}else{
-			VoluntarioDAO voluntarioDAO = new VoluntarioDAO();
-			try {
-				voluntarioDAO.recuperaParticipacao(voluntario);
-			} catch (SQLException e) {
-
-			}
-			
-			sessao.setAttribute("eventosDoVoluntario", voluntario.getEventos());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp");
-			dispatcher.forward(request, response);
+		if (sessao.getAttribute("voluntario") instanceof Voluntario){
+			voluntario = (Voluntario) sessao.getAttribute("voluntario");
 		}
+		Boolean logado = false;
+		if (sessao.getAttribute("logado") instanceof Boolean){
+			logado = (Boolean) sessao.getAttribute("logado");
+		}
+		
+		if (logado){
+			if (voluntario.getAdmin()){
+				AdministradorDAO admdao = new AdministradorDAO();
+				
+				try {
+					List<Evento> eventosPorAdministrador = admdao.eventosPorAdministrador(voluntario);
+					sessao.setAttribute("eventosDoAdm", eventosPorAdministrador );
+					
+				} catch (SQLException e) {
+					
+				}
+				//RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp");
+				//dispatcher.forward(request, response);
+			}
+				sessao.setAttribute("eventosDoVoluntario", voluntario.getEventos());
+				if (voluntario.getEventos().isEmpty()){
+					sessao.setAttribute("mensagemEventos", "Você ainda não participou de nenhum evento ainda");
+				}
+				RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp");
+				dispatcher.forward(request, response);
+			
+		}
+		else {
+			response.sendRedirect("index.jsp");
+		}
+		
+		
 	}
 
 }

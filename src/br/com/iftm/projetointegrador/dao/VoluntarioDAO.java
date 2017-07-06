@@ -107,7 +107,7 @@ public class VoluntarioDAO {
 	
 	public void recuperaParticipacao(Voluntario voluntario) throws SQLException{
 		Connection conexao = Conexao.getConexao();
-        String sql = "select * from evento where cod_evento in(select cod_evento from participacao where cod_voluntario = ?)";
+        String sql = "select * from evento where cod_evento in(select cod_evento from participacao where cod_voluntario = ? and participou = 1)";
         PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setInt(1, voluntario.getCodvoluntario());
         
@@ -147,6 +147,17 @@ public class VoluntarioDAO {
         stmt.setString(1, voluntario.getNome());
         stmt.setString(2, voluntario.getSenha());
         stmt.setInt(3, voluntario.getCodvoluntario());
+        stmt.execute();
+        stmt.close();
+        conexao.close();
+	}
+	
+	public void addExperiencia(Voluntario voluntario) throws SQLException{
+		Connection conexao =  Conexao.getConexao();
+        String sql = "update Voluntario set experiencia=? where cod_voluntario = ?";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, voluntario.getExperiencia());
+        stmt.setInt(2, voluntario.getCodvoluntario());
         stmt.execute();
         stmt.close();
         conexao.close();

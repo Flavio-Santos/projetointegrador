@@ -35,46 +35,7 @@ public class ConfirmaParticipacao extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession sessao = request.getSession();
-		
-		Voluntario admin = new Voluntario();
-		if(sessao.getAttribute("voluntario")instanceof Voluntario){
-			admin = (Voluntario) sessao.getAttribute("voluntario");	
-		}
-		
-		if (admin.getAdmin()){
-			
-			Integer idevento = Integer.parseInt(request.getParameter("codevento"));
-			
-			EventoDAO eventoDao = new EventoDAO();
-			Evento evento = null;
-			try {
-				evento = eventoDao.getEvento(idevento);
-			} catch (NumberFormatException | SQLException e) {
-				
-			}
-			
-			String id = request.getParameter("codvoluntario");
-			Integer codvoluntario = Integer.parseInt(id);
-			
-			VoluntarioDAO voluntarioDao = new VoluntarioDAO();
-			Voluntario voluntario = null;
-			try {
-				voluntario = voluntarioDao.getVoluntario(codvoluntario);
-			} catch (NumberFormatException | SQLException e) {
-				
-			}
-			
-			if(voluntario != null && evento != null){
-				try {
-					eventoDao.confirmaParticipacao(evento, voluntario);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		
+		doPost(request, response);
 	}
 
 	/**
@@ -82,7 +43,54 @@ public class ConfirmaParticipacao extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		HttpSession sessao = request.getSession();
+		VoluntarioDAO voluntarioDao = new VoluntarioDAO();
+		
+		String codvoluntarios[] = request.getParameterValues("codvoluntario");
+		//response.getWriter().append("a" + codvoluntarios[0]);
+		
+		//Pega o usuario que esta logado na sessao
+		Voluntario administrador = new Voluntario();
+		if(sessao.getAttribute("voluntario") instanceof Voluntario){
+			administrador = (Voluntario) sessao.getAttribute("voluntario");	
+		}else{
+			administrador = null;
+		}
+		
+		String idstring = request.getParameter("codevento");
+		Integer id = Integer.parseInt(idstring);
+		
+		//Pega e cria o evento que o usuario clicou
+		EventoDAO eventoDao = new EventoDAO();
+		Evento evento = new Evento();
+		try {
+			evento = eventoDao.getEvento(id);
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Tratar EXCEÇÂO
+			e.printStackTrace();
+		}
+		
+		if(administrador != null && evento != null){
+			administrador.associaEvento(evento);
+			for (int i = 0; i < codvoluntarios.length; i++) {
+				try {
+					Voluntario voluntario = voluntarioDao.getVoluntario(Integer.parseInt(codvoluntarios[i]));
+					eventoDao.confirmaParticipacao(evento, voluntario);
+					voluntario.addExperiencia(evento.getExperiencia());
+					voluntario.associaEvento(evento);
+					voluntarioDao.addExperiencia(voluntario);
+				} catch (NumberFormatException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+			response.sendRedirect("PerfilServlet");
+			
+		}else {
+			response.getWriter().append("Tem que estar logado para participar");
+		}
+		
 	}
 
 }

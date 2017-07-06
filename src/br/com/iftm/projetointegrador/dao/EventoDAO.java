@@ -84,7 +84,7 @@ public class EventoDAO {
 		return evento;
 	}
 
-	public void insereParticipacao(Evento evento, Voluntario voluntario) throws SQLException{
+	public Boolean insereParticipacao(Evento evento, Voluntario voluntario) throws SQLException{
 		Connection conexao = Conexao.getConexao();
 		
 		String valida = "select cod_voluntario from participacao where cod_voluntario = ? and cod_evento = ?;";
@@ -107,6 +107,7 @@ public class EventoDAO {
         }
 		
         conexao.close();
+        return verificacao;
 	}
 	
 	public void recuperaParticipacao(Evento evento) throws SQLException{

@@ -48,7 +48,6 @@ public class ParticipaServlet extends HttpServlet {
 		}
 		
 		if(voluntario != null && evento != null){
-			voluntario.associaEvento(evento);
 			try {
 				eventoDao.insereParticipacao(evento, voluntario);
 				response.sendRedirect("EventoServlet");

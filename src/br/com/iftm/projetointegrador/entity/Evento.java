@@ -114,6 +114,12 @@ public class Evento {
 		this.nomeevento = nome;
 		this.descricao = descricao;
 	}
+	
+	public LinkedList<Voluntario> getParticipantes(){
+		LinkedList<Voluntario> voluntarios = this.voluntarios;
+		voluntarios.removeFirst();
+		return voluntarios;
+	}
 
 	public String getDescricao() {
 		return descricao;

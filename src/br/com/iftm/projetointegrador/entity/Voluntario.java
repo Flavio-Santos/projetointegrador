@@ -70,6 +70,10 @@ public class Voluntario {
 		return login;
 	}
 	
+	public void addExperiencia(Integer exp){
+		this.experiencia += exp;
+	}
+	
 	public int getCodpatente() {
 		return patente.getCodpatente();
 	}
